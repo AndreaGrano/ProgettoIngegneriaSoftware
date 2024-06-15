@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane prefHeight="500.0" prefWidth="800.0" stylesheets="@Grafica.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfacciaAmministratore.HomeAmministratore">
+   <children>
+      <ImageView fitHeight="500.0" fitWidth="800.0" opacity="0.5">
+         <image>
+            <Image url="@finance-background-lmbrnieyixwr61g9-799444085.jpg" />
+         </image>
+      </ImageView>
+      <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Funzionalità operatore">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="463.0" prefWidth="800.0" />
+            </content>
+          </Tab>
+          <Tab text="Accesso diretto ai dati">
+            <content>
+              <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="800.0">
+                     <children>
+                        <VBox prefHeight="450.0" prefWidth="744.0">
+                           <children>
+                              <Label id="title" text="Clienti" />
+                              <TableView fx:id="tableClienti" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="800.0">
+                                <columns>
+                                  <TableColumn prefWidth="98.0" text="Nome" />
+                                  <TableColumn prefWidth="99.5" text="Cognome" />
+                                    <TableColumn prefWidth="95.0" text="Data di nascita" />
+                                    <TableColumn prefWidth="127.0" text="Numero di telefono" />
+                                    <TableColumn minWidth="0.0" prefWidth="140.0" text="Indirizzo" />
+                                    <TableColumn minWidth="5.0" prefWidth="121.0" text="Codice fiscale" />
+                                </columns>
+                              </TableView>
+                              <Label id="title" text="Crediti" />
+                              <TableView fx:id="tableCrediti" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="800.0">
+                                <columns>
+                                  <TableColumn prefWidth="75.0" text="Causale" />
+                                  <TableColumn prefWidth="75.0" text="Data stipula" />
+                                    <TableColumn prefWidth="75.0" text="Importo" />
+                                    <TableColumn prefWidth="75.0" text="CF cliente" />
+                                </columns>
+                              </TableView>
+                              <Label id="title" text="Bonifici" />
+                              <TableView fx:id="tableBonifici" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="800.0">
+                                <columns>
+                                    <TableColumn prefWidth="75.0" text="IBAN" />
+                                  <TableColumn prefWidth="75.0" text="Data valuta" />
+                                    <TableColumn prefWidth="75.0" text="Causale" />
+                                  <TableColumn prefWidth="75.0" text="Importo" />
+                                </columns>
+                              </TableView>
+                              <Button mnemonicParsing="false" onAction="#aggiornaDati" text="Aggiorna dati">
+                                 <VBox.margin>
+                                    <Insets left="700.0" top="18.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Parametri del sistema">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="463.0" prefWidth="800.0">
+                     <children>
+                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="463.0" prefWidth="200.0">
+                           <children>
+                              <Label id="label_not_column" text="Percentuale multa">
+                                 <VBox.margin>
+                                    <Insets top="15.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label id="label_not_column" text="Intervallo temporale credito">
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label id="label_not_column" text="Intervallo temporale blacklist">
+                                 <VBox.margin>
+                                    <Insets top="15.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label id="label_not_column" text="FormatoCausale">
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox layoutX="200.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="463.0" prefWidth="150.0">
+                           <children>
+                              <TextField fx:id="iPercMulta">
+                                 <VBox.margin>
+                                    <Insets top="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="iRitardoCredito">
+                                 <VBox.margin>
+                                    <Insets top="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="iRitardoBlacklist">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="iFormatoCausale">
+                                 <VBox.margin>
+                                    <Insets top="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="362.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="463.0" prefWidth="100.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#aggiornaMulta" text="Aggiorna">
+                                 <VBox.margin>
+                                    <Insets top="15.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#aggiornaRitardoCredito" text="Aggiorna">
+                                 <VBox.margin>
+                                    <Insets top="7.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#aggiornaRitardoBlacklist" text="Aggiorna">
+                                 <VBox.margin>
+                                    <Insets top="11.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#aggiornaFormatoCausale" text="Aggiorna">
+                                 <VBox.margin>
+                                    <Insets top="12.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Gestione degli operatori">
+              <content>
+                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="800.0">
+                     <children>
+                        <VBox layoutY="20.0" prefHeight="442.0" prefWidth="342.0">
+                           <children>
+                              <HBox prefHeight="216.0" prefWidth="342.0">
+                                 <children>
+                                    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="140.0">
+                                       <children>
+                                          <Label id="label_not_column" text="Nome">
+                                             <VBox.margin>
+                                                <Insets top="15.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label id="label_not_column" text="Cognome">
+                                             <VBox.margin>
+                                                <Insets top="15.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label id="label_not_column" text="Telefono">
+                                             <VBox.margin>
+                                                <Insets top="15.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label id="label_not_column" text="Username">
+                                             <VBox.margin>
+                                                <Insets top="15.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label id="label_not_column" text="Password">
+                                             <VBox.margin>
+                                                <Insets top="15.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label id="label_not_column" text="Conferma password">
+                                             <VBox.margin>
+                                                <Insets top="15.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <VBox maxHeight="-Infinity" prefHeight="220.0" prefWidth="421.0">
+                                       <children>
+                                          <TextField fx:id="iNomeOperatore" prefHeight="22.0" prefWidth="212.0">
+                                             <VBox.margin>
+                                                <Insets top="10.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="iCognomeOperatore" prefHeight="22.0" prefWidth="212.0">
+                                             <VBox.margin>
+                                                <Insets top="10.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="iTelefonoOperatore" prefHeight="22.0" prefWidth="236.0">
+                                             <VBox.margin>
+                                                <Insets top="10.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="iUsrOperatore">
+                                             <VBox.margin>
+                                                <Insets top="10.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <PasswordField fx:id="iPwdOperatore" prefHeight="22.0" prefWidth="224.0">
+                                             <VBox.margin>
+                                                <Insets top="10.0" />
+                                             </VBox.margin>
+                                          </PasswordField>
+                                          <PasswordField fx:id="iConfPwdOp" prefHeight="22.0" prefWidth="212.0">
+                                             <VBox.margin>
+                                                <Insets top="10.0" />
+                                             </VBox.margin>
+                                          </PasswordField>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Button id=".button" mnemonicParsing="false" onAction="#clickCreaOp" text="Crea operatore" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="349.0" layoutY="16.0" prefHeight="437.0" prefWidth="453.0">
+                           <children>
+                              <HBox prefHeight="37.0" prefWidth="398.0">
+                                 <children>
+                                    <Label id="title" text="Elimina operatore" />
+                                    <ComboBox fx:id="selEliminaOp" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="202.0">
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin></ComboBox>
+                                    <Button mnemonicParsing="false" onAction="#clickEliminaOp" text="Elimina">
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin></Button>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="35.0" prefWidth="398.0">
+                                 <children>
+                                    <Label id="title" text="Sblocca operatore" />
+                                    <ComboBox fx:id="selSbloccaOp" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="202.0">
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin></ComboBox>
+                                    <Button mnemonicParsing="false" onAction="#clickSbloccaOp" text="Sblocca">
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin></Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </VBox>
+                        <HBox prefHeight="19.0" prefWidth="375.0">
+                           <children>
+                              <Label id="title" text="Crea operatore" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Log">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="463.0" prefWidth="800.0">
+                     <children>
+                        <ListView fx:id="log" maxWidth="-Infinity" prefHeight="394.0" prefWidth="800.0" />
+                        <Label id="label_not_column" layoutX="6.0" layoutY="423.0" text="Data fine" />
+                        <DatePicker fx:id="iDataFineLog" layoutX="81.0" layoutY="420.0" />
+                        <Label id="label_not_column" layoutX="6.0" layoutY="398.0" text="Data inizio" />
+                        <DatePicker fx:id="iDataInizioLog" layoutX="81.0" layoutY="395.0" />
+                        <Button layoutX="288.0" layoutY="408.0" mnemonicParsing="false" onAction="#filtraLog" text="Filtra" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</StackPane>
