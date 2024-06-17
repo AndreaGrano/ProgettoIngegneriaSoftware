@@ -10,6 +10,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -27,11 +28,247 @@
       </ImageView>
       <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Funzionalità operatore">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="463.0" prefWidth="800.0" />
-            </content>
-          </Tab>
+            <Tab onSelectionChanged="#selezioneRegistrazione" text="Registrazione credito">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="400.0">
+                           <children>
+                              <Label id="title" text="Dati del cliente" />
+                              <HBox prefHeight="40.0" prefWidth="400.0">
+                                 <children>
+                                    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0">
+                                       <children>
+                                          <Label id="label_not_column" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="100.0" text="Nome" />
+                                       </children>
+                                    </VBox>
+                                    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0">
+                                       <children>
+                                          <TextField fx:id="iNome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="280.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="15.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox prefHeight="40.0" prefWidth="400.0">
+                                 <children>
+                                    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0">
+                                       <children>
+                                          <Label id="label_not_column" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="100.0" text="Cognome" />
+                                       </children>
+                                    </VBox>
+                                    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0">
+                                       <children>
+                                          <TextField fx:id="iCognome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="280.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="400.0">
+                                 <children>
+                                    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0">
+                                       <children>
+                                          <Label id="label_not_column" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="100.0" text="Data di nascita" />
+                                       </children>
+                                    </VBox>
+                                    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="300.0">
+                                       <children>
+                                          <DatePicker fx:id="iDataNascita" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="400.0">
+                                 <children>
+                                    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
+                                       <children>
+                                          <Label id="label_not_column" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="100.0" text="Telefono" />
+                                       </children>
+                                    </VBox>
+                                    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="300.0">
+                                       <children>
+                                          <TextField fx:id="iTelefono" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="280.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="400.0">
+                                 <children>
+                                    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0">
+                                       <children>
+                                          <Label id="label_not_column" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="100.0" text="Indirizzo" />
+                                       </children>
+                                    </VBox>
+                                    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="300.0">
+                                       <children>
+                                          <TextField fx:id="iIndirizzo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="280.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="400.0">
+                                 <children>
+                                    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0">
+                                       <children>
+                                          <Label id="label_not_column" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="100.0" text="Codice fiscale" />
+                                       </children>
+                                    </VBox>
+                                    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0">
+                                       <children>
+                                          <TextField fx:id="iCodFisc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="280.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="400.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="400.0">
+                           <children>
+                              <Label id="title" text="Dati del credito">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                              <HBox prefHeight="42.0" prefWidth="595.0">
+                                 <children>
+                                    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0">
+                                       <children>
+                                          <Label id="label_not_column" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="100.0" text="Causale" />
+                                       </children>
+                                    </VBox>
+                                    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0">
+                                       <children>
+                                          <TextField fx:id="iCausale" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="280.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="15.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox prefHeight="38.0" prefWidth="595.0">
+                                 <children>
+                                    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0">
+                                       <children>
+                                          <Label id="label_not_column" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="100.0" text="Data stipula" />
+                                       </children>
+                                    </VBox>
+                                    <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0">
+                                       <children>
+                                          <DatePicker fx:id="iDataStipula" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="46.0" prefWidth="595.0">
+                                 <children>
+                                    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0">
+                                       <children>
+                                          <Label id="label_not_column" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="100.0" text="Importo" />
+                                       </children>
+                                    </VBox>
+                                    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0">
+                                       <children>
+                                          <TextField fx:id="iImporto" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="280.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <Button layoutX="719.0" layoutY="280.0" mnemonicParsing="false" onAction="#eseguiInserimentoCredito" text="Inserisci" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab onSelectionChanged="#selezioneRiconciliazione" text="Riconciliazione manuale">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="597.0" prefWidth="801.0">
+                     <children>
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="800.0">
+                           <children>
+                              <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="400.0">
+                                 <children>
+                                    <Label id="title" text="Bonifici" />
+                                    <ListView fx:id="listBonificiNonRiconciliati" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="400.0" />
+                                 </children>
+                              </VBox>
+                              <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="400.0">
+                                 <children>
+                                    <Label id="title" text="Crediti" />
+                                    <ListView fx:id="listCreditiNonRiconciliati" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="400.0" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <Button layoutX="709.0" layoutY="424.0" mnemonicParsing="false" onAction="#eseguiRiconciliazioneManuale" text="Riconcilia" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab onSelectionChanged="#selezioneVisualizzaBonifici" text="Visualizza bonifici">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="214.0" prefWidth="678.0">
+                     <children>
+                        <ListView fx:id="listTuttiBonifici" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="800.0" />
+                        <Button layoutX="659.0" layoutY="423.0" mnemonicParsing="false" onAction="#eseguiScaricamentoBonifici" prefHeight="26.0" prefWidth="127.0" text="Scarica bonifici" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab onSelectionChanged="#selezioneVisualizzaCrediti" text="Visualizza crediti">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button layoutX="669.0" layoutY="423.0" mnemonicParsing="false" onAction="#eseguiScaricamentoCrediti" prefHeight="26.0" prefWidth="117.0" text="Scarica crediti" />
+                        <ListView fx:id="listTuttiCrediti" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="800.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab onSelectionChanged="#selezioneVisualizzaCreditiScaduti" text="Visualizza crediti scaduti">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="422.0" prefWidth="394.0">
+                           <children>
+                              <ListView fx:id="listCreditiScaduti" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="800.0" />
+                           </children>
+                        </VBox>
+                        <Button layoutX="643.0" layoutY="422.0" mnemonicParsing="false" onAction="#eseguiScaricamentoCreditiScaduti" text="Scarica crediti scaduti" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab onSelectionChanged="#selezioneConfigurazione" text="Configurazione">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+                           <children>
+                              <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="400.0" spacing="100.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#visualizzaVersione" text="Versione" />
+                                    <Button mnemonicParsing="false" onAction="#visualizzaElencoAggiornamenti" text="Elenco aggiornamenti" />
+                                    <Button mnemonicParsing="false" onAction="#eseguiInstallaAggiornamenti" text="Installa aggiornamenti" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </VBox>
+                              <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="400.0">
+                                 <children>
+                                    <TextArea fx:id="infoApp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="400.0" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
           <Tab onSelectionChanged="#selezioneDati" text="Accesso diretto ai dati">
             <content>
               <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="800.0">
@@ -39,32 +276,32 @@
                         <VBox prefHeight="450.0" prefWidth="744.0">
                            <children>
                               <Label id="title" text="Clienti" />
-                              <TableView fx:id="tableClienti" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="800.0">
+                              <TableView fx:id="tableClienti" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="800.0">
                                 <columns>
-                                  <TableColumn prefWidth="98.0" text="Nome" />
-                                  <TableColumn prefWidth="99.5" text="Cognome" />
-                                    <TableColumn prefWidth="95.0" text="Data di nascita" />
-                                    <TableColumn prefWidth="127.0" text="Numero di telefono" />
-                                    <TableColumn minWidth="0.0" prefWidth="140.0" text="Indirizzo" />
-                                    <TableColumn minWidth="5.0" prefWidth="121.0" text="Codice fiscale" />
+                                  <TableColumn fx:id="colNome" prefWidth="98.0" sortable="false" text="Nome" />
+                                  <TableColumn fx:id="colCognome" prefWidth="99.5" sortable="false" text="Cognome" />
+                                    <TableColumn fx:id="colDataNascita" prefWidth="95.0" sortable="false" text="Data di nascita" />
+                                    <TableColumn fx:id="colTelefono" prefWidth="127.0" sortable="false" text="Numero di telefono" />
+                                    <TableColumn fx:id="colIndirizzo" minWidth="0.0" prefWidth="140.0" sortable="false" text="Indirizzo" />
+                                    <TableColumn fx:id="colCodFisc" minWidth="5.0" prefWidth="121.0" sortable="false" text="Codice fiscale" />
                                 </columns>
                               </TableView>
                               <Label id="title" text="Crediti" />
-                              <TableView fx:id="tableCrediti" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="800.0">
+                              <TableView fx:id="tableCrediti" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="800.0">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" text="Causale" />
-                                  <TableColumn prefWidth="75.0" text="Data stipula" />
-                                    <TableColumn prefWidth="75.0" text="Importo" />
-                                    <TableColumn prefWidth="75.0" text="CF cliente" />
+                                  <TableColumn fx:id="colCausaleCredito" prefWidth="75.0" sortable="false" text="Causale" />
+                                  <TableColumn fx:id="colDataStipula" prefWidth="87.0" sortable="false" text="Data stipula" />
+                                    <TableColumn fx:id="colImpCredito" sortable="false" text="Importo" />
+                                    <TableColumn fx:id="colCFCliente" prefWidth="149.0" sortable="false" text="CF cliente" />
                                 </columns>
                               </TableView>
                               <Label id="title" text="Bonifici" />
-                              <TableView fx:id="tableBonifici" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="800.0">
+                              <TableView fx:id="tableBonifici" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="800.0">
                                 <columns>
-                                    <TableColumn prefWidth="75.0" text="IBAN" />
-                                  <TableColumn prefWidth="75.0" text="Data valuta" />
-                                    <TableColumn prefWidth="75.0" text="Causale" />
-                                  <TableColumn prefWidth="75.0" text="Importo" />
+                                    <TableColumn fx:id="colIBAN" prefWidth="75.0" sortable="false" text="IBAN" />
+                                  <TableColumn fx:id="colDataValuta" prefWidth="75.0" sortable="false" text="Data valuta" />
+                                    <TableColumn fx:id="colCausaleBonifico" prefWidth="75.0" sortable="false" text="Causale" />
+                                  <TableColumn fx:id="colImpBonifico" prefWidth="75.0" sortable="false" text="Importo" />
                                 </columns>
                               </TableView>
                               <Button mnemonicParsing="false" onAction="#aggiornaDati" text="Aggiorna dati">
@@ -78,7 +315,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="Parametri del sistema">
+            <Tab onSelectionChanged="#selezioneParametri" text="Parametri del sistema">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="463.0" prefWidth="800.0">
                      <children>
@@ -161,7 +398,7 @@
                   </AnchorPane>
               </content>
             </Tab>
-            <Tab text="Gestione degli operatori">
+            <Tab onSelectionChanged="#selezioneGestioneOperatori" text="Gestione degli operatori">
               <content>
                 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="800.0">
                      <children>
@@ -286,7 +523,7 @@
                   </AnchorPane>
               </content>
             </Tab>
-            <Tab text="Log">
+            <Tab onSelectionChanged="#selezioneLog" text="Log">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="463.0" prefWidth="800.0">
                      <children>

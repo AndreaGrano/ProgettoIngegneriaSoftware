@@ -15,4 +15,8 @@ public class EntryOperazione extends Entry {
 		return operazione;
 	}
 
+	@Override
+	public String toString() {
+		return this.operazione;
+	}
 }

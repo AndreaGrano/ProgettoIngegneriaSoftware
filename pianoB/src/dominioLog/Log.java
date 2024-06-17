@@ -10,7 +10,9 @@ public class Log extends HashSet<Entry>{
 		HashSet<Entry> matchingSet = new HashSet<Entry>();
 		
 		for(Entry entry : this) {
-			if(entry.getDataOra().isAfter(start) && entry.getDataOra().isBefore(end)) {
+			if((entry.getDataOra().isAfter(start) && entry.getDataOra().isBefore(end)) 
+					|| entry.getDataOra().toLocalDate().isEqual(end.toLocalDate())
+					|| entry.getDataOra().toLocalDate().isEqual(start.toLocalDate())) {
 				matchingSet.add(entry);
 			}
 		}

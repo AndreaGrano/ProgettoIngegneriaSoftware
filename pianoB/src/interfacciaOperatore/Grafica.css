@@ -196,7 +196,7 @@
 }
  
 .date-picker-popup .week-number-cell {
-  -fx-text-fill: -fx-#1dbbdd11;
+  -fx-text-fill: #1dbbdd11;
 }
 
 .date-picker-popup .spinner .button .left-arrow,

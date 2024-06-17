@@ -57,8 +57,10 @@ public class LogController implements ILog{
 			DateTimeFormatter dtFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 			String line;
 			while((line = br.readLine()) != null) {
-				StringTokenizer st = new StringTokenizer(line, "-");
-				LocalDateTime dataOra = LocalDateTime.parse(line, dtFormatter);
+				StringTokenizer st = new StringTokenizer(line, " ");
+				LocalDateTime dataOra = LocalDateTime.parse(st.nextToken(), dtFormatter);
+				
+				st = new StringTokenizer(line, "-");
 				if(st.countTokens() <= 2) {
 					String operazione = "";
 					while(st.hasMoreTokens()) {

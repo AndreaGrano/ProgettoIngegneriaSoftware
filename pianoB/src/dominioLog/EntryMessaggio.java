@@ -14,4 +14,9 @@ public class EntryMessaggio extends Entry {
 	public String getMessaggio() {
 		return messaggio;
 	}
+	
+	@Override
+	public String toString() {
+		return this.messaggio;
+	}
 }
