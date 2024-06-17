@@ -1,14 +1,14 @@
 package log;
 
 import java.time.*;
-import java.util.HashSet;
+import java.util.ArrayList;
 
 import dominioLog.*;
 
 public interface ILog {
-	public HashSet<Entry> getEntry(LocalDateTime start, LocalDateTime end);
+	public ArrayList<Entry> getEntry(LocalDateTime start, LocalDateTime end);
 	
-	public HashSet<Entry> getEntry(LocalDate data);
+	public ArrayList<Entry> getEntry(LocalDate data);
 	
 	public Log getLog();
 	

@@ -3,11 +3,11 @@ package dominioLog;
 import java.time.*;
 import java.util.*;
 
-public class Log extends HashSet<Entry>{
+public class Log extends ArrayList<Entry>{
 	private static final long serialVersionUID = 1L;
 	
-	public HashSet<Entry> getEntry(LocalDateTime start, LocalDateTime end) {
-		HashSet<Entry> matchingSet = new HashSet<Entry>();
+	public ArrayList<Entry> getEntry(LocalDateTime start, LocalDateTime end) {
+		ArrayList<Entry> matchingSet = new ArrayList<Entry>();
 		
 		for(Entry entry : this) {
 			if((entry.getDataOra().isAfter(start) && entry.getDataOra().isBefore(end)) 
@@ -20,8 +20,8 @@ public class Log extends HashSet<Entry>{
 		return matchingSet;
 	}
 	
-	public HashSet<Entry> getEntry(LocalDate date) {
-		HashSet<Entry> matchingSet = new HashSet<Entry>();
+	public ArrayList<Entry> getEntry(LocalDate date) {
+		ArrayList<Entry> matchingSet = new ArrayList<Entry>();
 		
 		for(Entry entry : this) {
 			if(entry.getDataOra().toLocalDate().equals(date)) {

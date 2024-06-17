@@ -13,4 +13,8 @@ public class CreditoScaduto extends Credito{
 		
 	}
 	
+	@Override
+	public String toString() {
+		return super.stampaCredito();
+	}
 }

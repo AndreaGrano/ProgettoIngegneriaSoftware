@@ -113,7 +113,16 @@ public class GestioneManualeController implements IRiconciliazioneManuale, IGest
 		
 		//si verifica se cliente sia o meno presente sul DB; se necessario, lo si inserisce
 		Set<Cliente> clienti = clienteDAO.readAll();
-		if(!clienti.contains(cliente)) {
+		
+		boolean presente = false;
+		for(Cliente c : clienti) {
+			if(c.getCodiceFiscale().equals(cliente.getCodiceFiscale())) {
+				presente = true;
+				break;
+			}
+		}
+		
+		if(!presente) {
 			//si scrive nel log l'operazione di creazione del cliente
 			String[] operazioneCliente = {LocalDateTime.now().toString(), " - creazione cliente - ", this.getClass().getSimpleName()};
 			logController.printLogOperazione(operazioneCliente);
@@ -124,6 +133,8 @@ public class GestioneManualeController implements IRiconciliazioneManuale, IGest
 			clienteDAO.create(cliente);
 		}
 		
+		//per riassegnare l'id
+		cliente = clienteDAO.readByCF(cliente.getCodiceFiscale());
 		
 		//si scrive nel log l'operazione di registrazione del credito
 		String[] operazioneCredito = {LocalDateTime.now().toString(), " - creazione credito - ", this.getClass().getSimpleName()};
@@ -183,7 +194,7 @@ public class GestioneManualeController implements IRiconciliazioneManuale, IGest
 		BonificoRiconciliato bonificoRiconciliato = new BonificoRiconciliato(bonificoNonRiconciliato.getId(), bonificoNonRiconciliato.getIBAN(), bonificoNonRiconciliato.getDataValuta(),
 																				bonificoNonRiconciliato.getCausale(), bonificoNonRiconciliato.getImporto());
 		BonificoDAO bonificoDAO = factory.getBonificoDAO();
-		bonificoDAO.update(bonificoRiconciliato, 0);
+		bonificoDAO.update(bonificoRiconciliato, creditiNonRiconciliati.size());
 		
 		
 		//si aggiornano i crediti sul DB
@@ -198,7 +209,7 @@ public class GestioneManualeController implements IRiconciliazioneManuale, IGest
 			//si aggiorna il credito sul DB
 			CreditoRiconciliato creditoRiconciliato = new CreditoRiconciliato(creditoNonRiconciliato.getId(), creditoNonRiconciliato.getImporto(), creditoNonRiconciliato.getDataStipula(),
 																				creditoNonRiconciliato.getCausale(), creditoNonRiconciliato.getCliente(), bonificoRiconciliato);
-			creditoDAO.update(creditoRiconciliato);
+			creditoDAO.update(creditoRiconciliato, bonificoRiconciliato.getId());
 		}
 		
 		return true;

@@ -14,4 +14,9 @@ public class BonificoRiconciliato extends Bonifico{
 	public BonificoRiconciliato() {
 		super();
 	}
+	
+	@Override
+	public String toString() {
+		return super.stampaBonifico();
+	}
 }

@@ -17,4 +17,8 @@ public class CreditoNonRiconciliato extends Credito{
 		super();
 	}
 
+	@Override
+	public String toString() {
+		return super.stampaCredito();
+	}
 }

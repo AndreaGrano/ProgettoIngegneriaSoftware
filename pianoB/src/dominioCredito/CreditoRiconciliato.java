@@ -27,4 +27,9 @@ public class CreditoRiconciliato extends Credito {
 	public void setBonifico(Bonifico bonifico) {
 		this.bonifico = bonifico;
 	}
+	
+	@Override
+	public String toString() {
+		return super.stampaCredito();
+	}
 }

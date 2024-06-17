@@ -19,6 +19,7 @@ import dominioCredito.CreditoRiconciliato;
 import dominioCredito.CreditoScaduto;
 //import timerETimerTask.AllTimerScadenza;
 import log.LogController;
+import timerETimerTask.AllTimerScadenza;
 
 public class Db2CreditoDAO implements CreditoDAO {
 
@@ -324,50 +325,50 @@ public class Db2CreditoDAO implements CreditoDAO {
 
 	@Override
 	public CreditiScaduti readCreditiScaduti() {
-//		LogController logController = new LogController();
-//		String[] operazione = {LocalDateTime.now().toString(), " - read Crediti Scaduti - ", this.getClass().getSimpleName()};
-//		logController.printLogOperazione(operazione);
-//		String[] messaggio = {LocalDateTime.now().toString(), " - read Crediti Scaduti", " - ricezione - ", this.getClass().getSimpleName()};
-//		logController.printLogMessaggio(messaggio);
-//		CreditiScaduti crediti = new CreditiScaduti();
-//		Connection conn = Db2DAOFactoryCredito.createConnection();
-//		try {
-//			Statement stmt = conn.createStatement();
-//			ResultSet rs = stmt.executeQuery(read_all);
-//			while (rs.next()) {
-//				if (rs.getInt(ID_BONIFICO_RICONCILIATO) == 0) { 
-//					CreditoScaduto credito = new CreditoScaduto();
-//					Cliente cl = new Cliente();
-//					credito.setId(rs.getInt(1));
-//					java.sql.Date d = rs.getDate(2);
-//					credito.setDataStipula(d.toLocalDate());
-//					credito.setImporto(rs.getDouble(3));
-//					credito.setCausale(rs.getString(4)); // -----> E' CAUSALE!!!
-//					cl.setId(rs.getInt(7));
-//					cl.setCodiceFiscale(rs.getString(8));
-//					cl.setNome(rs.getString(9));
-//					cl.setCognome(rs.getString(10));
-//					cl.setDataNascita(rs.getDate(11).toLocalDate());
-//					cl.setTelefono(rs.getString(12));
-//					cl.setIndirizzo(rs.getString(13) + "," + rs.getString(14) + ","
-//							+ rs.getString(15) + "," + rs.getString(16));
-//					credito.setCliente(cl);
-//					if (AllTimerScadenza.getInstance().getTimerScadenza(credito) == null) {
-//						crediti.add(credito);
-//					}	
-//				}
-//				
-//			}
-//			rs.close();
-//			stmt.close();
-//		} catch (Exception e) {
-//			System.err.println("read(): failed to retrieve entries: " + e.getMessage());
-//			e.printStackTrace();
-//		} finally {
-//			Db2DAOFactoryCredito.closeConnection(conn);
-//		}
-//		return crediti;
-		return null;
+		LogController logController = new LogController();
+		String[] operazione = {LocalDateTime.now().toString(), " - read Crediti Scaduti - ", this.getClass().getSimpleName()};
+		logController.printLogOperazione(operazione);
+		String[] messaggio = {LocalDateTime.now().toString(), " - read Crediti Scaduti", " - ricezione - ", this.getClass().getSimpleName()};
+		logController.printLogMessaggio(messaggio);
+		CreditiScaduti crediti = new CreditiScaduti();
+		Connection conn = Db2DAOFactoryCredito.createConnection();
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(read_all);
+			while (rs.next()) {
+				if (rs.getInt(ID_BONIFICO_RICONCILIATO) == 0) { 
+					CreditoScaduto credito = new CreditoScaduto();
+					Cliente cl = new Cliente();
+					credito.setId(rs.getInt(1));
+					java.sql.Date d = rs.getDate(2);
+					credito.setDataStipula(d.toLocalDate());
+					credito.setImporto(rs.getDouble(3));
+					credito.setCausale(rs.getString(4)); // -----> E' CAUSALE!!!
+					cl.setId(rs.getInt(7));
+					cl.setCodiceFiscale(rs.getString(8));
+					cl.setNome(rs.getString(9));
+					cl.setCognome(rs.getString(10));
+					cl.setDataNascita(rs.getDate(11).toLocalDate());
+					cl.setTelefono(rs.getString(12));
+					cl.setIndirizzo(rs.getString(13) + "," + rs.getString(14) + ","
+							+ rs.getString(15) + "," + rs.getString(16));
+					credito.setCliente(cl);
+					if (AllTimerScadenza.getInstance().getTimerScadenza(credito) == null) {
+						crediti.add(credito);
+					}	
+				}
+				
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			System.err.println("read(): failed to retrieve entries: " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			Db2DAOFactoryCredito.closeConnection(conn);
+		}
+		return crediti;
+//		return null;
 	}
 
 	@Override

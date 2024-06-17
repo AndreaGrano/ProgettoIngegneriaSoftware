@@ -6,8 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -75,6 +74,22 @@ public class HomeAmministratore implements Initializable {
 	private DatePicker iDataInizioLog, iDataFineLog;
 	private static final int USERNAME=0, PASSWORD=1;
 	private String[] credenziali;
+	@FXML
+	private TextField iNome, iCognome, iTelefono, iIndirizzo, iCodFisc, iCausale, iImporto;
+	@FXML
+	private DatePicker iDataNascita, iDataStipula;
+	@FXML
+	private ListView<BonificoNonRiconciliato> listBonificiNonRiconciliati;
+	@FXML
+	private ListView<Bonifico> listTuttiBonifici;
+	@FXML
+	private ListView<CreditoNonRiconciliato> listCreditiNonRiconciliati;
+	@FXML
+	private ListView<Credito> listTuttiCrediti;
+	@FXML
+	private ListView<CreditoScaduto> listCreditiScaduti;
+	@FXML
+	private TextArea infoApp;
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		credenziali=new String[2];
@@ -433,10 +448,7 @@ public class HomeAmministratore implements Initializable {
 		try {
 			digest = MessageDigest.getInstance("SHA3-256");
 		} catch (NoSuchAlgorithmException e) {
-			if(pwdOperatore.length() <= 0) {
-				MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Algoritmo di hashing errato", "Contattare l'amministratore");
-				return;
-			}
+			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Algoritmo di hashing errato", "Contattare l'amministratore");
 		}
 		String hash = bytesToHex(digest.digest(pwdOperatore.getBytes()));
 		
@@ -494,7 +506,7 @@ public class HomeAmministratore implements Initializable {
 		LocalDateTime inizio = LocalDateTime.of(dataInizio, LocalTime.of(0, 0));
 		LocalDateTime fine = LocalDateTime.of(dataFine, LocalTime.of(0, 0));
 		
-		HashSet<Entry> logFiltrato = controller.getEntry(inizio, fine);
+		ArrayList<Entry> logFiltrato = controller.getEntry(inizio, fine);
 		
 		ObservableList<Entry> olLog = FXCollections.observableArrayList();
 		for(Entry entry : logFiltrato) {
@@ -503,66 +515,19 @@ public class HomeAmministratore implements Initializable {
 		
 		log.setItems(olLog);
 	}
-	
-	//funzione di utilità per convertire in esadecimale
-	private static String bytesToHex(byte[] hash) {
-	    StringBuilder hexString = new StringBuilder(2 * hash.length);
-	    for (int i = 0; i < hash.length; i++) {
-	        String hex = Integer.toHexString(0xff & hash[i]);
-	        if(hex.length() == 1) {
-	            hexString.append('0');
-	        }
-	        hexString.append(hex);
-	    }
-	    return hexString.toString();
-	}
-	
-	//funzione di utilità molto basilare per verificare se una stringa sia una regex (quasi sempre true)
-	private boolean isRegex(String str) {
-	    try {
-	        java.util.regex.Pattern.compile(str);
-	        return true;
-	    } catch (java.util.regex.PatternSyntaxException e) {
-	        return false;
-	    }
-	}
-	
-	
-	/////////////////////////////
-	// FUNZIONALITA' OPERATORE //
-	/////////////////////////////
-	
 	@FXML
-	private TextField iNome, iCognome, iTelefono, iIndirizzo, iCodFisc, iCausale, iImporto;
-	@FXML
-	private DatePicker iDataNascita, iDataStipula;
-	@FXML
-	private ListView<BonificoNonRiconciliato> listBonificiNonRiconciliati;
-	@FXML
-	private ListView<Bonifico> listTuttiBonifici;
-	@FXML
-	private ListView<CreditoNonRiconciliato> listCreditiNonRiconciliati;
-	@FXML
-	private ListView<Credito> listTuttiCrediti;
-	@FXML
-	private ListView<CreditoScaduto> listCreditiScaduti;
-	@FXML
-	private TextArea infoApp;
-	
-	
-	@FXML
-	private void selezioneRegistrazione(ActionEvent event) {
-		iNome.clear();
-		iCognome.clear();
-		iTelefono.clear();
-		iIndirizzo.clear();
-		iCodFisc.clear();
+	private void selezioneRegistrazione() {
+		iNome.setText("");
+		iCognome.setText("");
+		iTelefono.setText("");
+		iIndirizzo.setText("");
+		iCodFisc.setText("");
 		
-		iCausale.clear();
-		iImporto.clear();
+		iCausale.setText("");
+		iImporto.setText("");
 	}
 	@FXML
-	private void selezioneRiconciliazione(ActionEvent event) {
+	private void selezioneRiconciliazione() {
 		GestioneManualeController controller = new GestioneManualeController(Db2DAOFactoryCredito.getDAOFactoryCredito(DAOFactoryCredito.DB2));
 
 		BonificiNonRiconciliati bonificiNonRiconciliati = controller.visualizzaBonificiNonRiconciliati();
@@ -583,23 +548,23 @@ public class HomeAmministratore implements Initializable {
 		listCreditiNonRiconciliati.setItems(olCrediti);
 	}
 	@FXML
-	private void selezioneVisualizzaBonifici(ActionEvent event) {
+	private void selezioneVisualizzaBonifici() {
 		listTuttiBonifici.setItems(FXCollections.observableArrayList());
 	}
 	@FXML
-	private void selezioneVisualizzaCrediti(ActionEvent event) {
+	private void selezioneVisualizzaCrediti() {
 		listTuttiCrediti.setItems(FXCollections.observableArrayList());
 	}
 	@FXML
-	private void selezioneVisualizzaCreditiScaduti(ActionEvent event) {
+	private void selezioneVisualizzaCreditiScaduti() {
 		listCreditiScaduti.setItems(FXCollections.observableArrayList());
 	}
 	@FXML
-	private void selezioneConfigurazione(ActionEvent event) {
-		infoApp.clear();
+	private void selezioneConfigurazione() {
+		infoApp.setText("");
 	}
 	@FXML
-	private void eseguiInserimentoCredito(ActionEvent event)
+	private void eseguiInserimentoCredito()
 	{
 		String nome = iNome.getCharacters().toString();
 		if(nome.isBlank()) {
@@ -621,6 +586,12 @@ public class HomeAmministratore implements Initializable {
 			return;
 		}
 		
+		String indirizzo = iIndirizzo.getCharacters().toString();
+		if(indirizzo.isBlank()) {
+			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Indirizzo cliente mancante", "Inserire l'indirizzo del cliente");
+			return;
+		}
+		
 		String codFisc = iCodFisc.getCharacters().toString();
 		if(codFisc.isBlank()) {
 			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Codice fiscale cliente mancante", "Inserire il codice fiscale del cliente");
@@ -632,6 +603,7 @@ public class HomeAmministratore implements Initializable {
 		cliente.setCognome(cognome);
 		cliente.setDataNascita(dataNascita);
 		cliente.setTelefono(telefono);
+		cliente.setIndirizzo(indirizzo);
 		cliente.setCodiceFiscale(codFisc);
 		
 		String causale = iCausale.getCharacters().toString();
@@ -680,6 +652,8 @@ public class HomeAmministratore implements Initializable {
 		
 		GestioneManualeController controller = new GestioneManualeController(Db2DAOFactoryCredito.getDAOFactoryCredito(DAOFactoryCredito.DB2));
 		controller.riconciliazioneManuale(bonificoNonRiconciliato, creditiNonRiconciliati);
+		
+		this.selezioneRiconciliazione();
 	}
 	@FXML
 	private void eseguiScaricamentoBonifici(ActionEvent event)
@@ -733,5 +707,28 @@ public class HomeAmministratore implements Initializable {
 		MsgDialog.showAndWait(AlertType.INFORMATION, "Info", "Aggiornamenti", "Nessun aggiornamento disponibile");
 		return;
 	}
+
+	//funzione di utilità per convertire in esadecimale
+	private static String bytesToHex(byte[] hash) {
+	    StringBuilder hexString = new StringBuilder(2 * hash.length);
+	    for (int i = 0; i < hash.length; i++) {
+	        String hex = Integer.toHexString(0xff & hash[i]);
+	        if(hex.length() == 1) {
+	            hexString.append('0');
+	        }
+	        hexString.append(hex);
+	    }
+	    return hexString.toString();
+	}
 	
+	//funzione di utilità molto basilare per verificare se una stringa sia una regex (quasi sempre true)
+	private boolean isRegex(String str) {
+	    try {
+	        java.util.regex.Pattern.compile(str);
+	        return true;
+	    } catch (java.util.regex.PatternSyntaxException e) {
+	        return false;
+	    }
+	}	
+		
 }

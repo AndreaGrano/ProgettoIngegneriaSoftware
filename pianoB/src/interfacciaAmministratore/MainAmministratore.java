@@ -13,7 +13,7 @@ public class MainAmministratore extends Application {
 		try {
 			FXMLLoader loader=new FXMLLoader(this.getClass().getResource("/interfacciaAmministratore/homeAmministratore.fxml"));
 			StackPane root = (StackPane) loader.load();
-			Scene scene = new Scene(root,400,400);
+			Scene scene = new Scene(root,800,500);
 			scene.getStylesheets().add(getClass().getResource("Grafica.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Home Amministratore");

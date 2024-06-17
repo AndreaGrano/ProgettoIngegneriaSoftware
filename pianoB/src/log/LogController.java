@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import dominioLog.Entry;
@@ -35,14 +35,14 @@ public class LogController implements ILog{
 	}
 	
 	@Override
-	public HashSet<Entry> getEntry(LocalDateTime start, LocalDateTime end) {
+	public ArrayList<Entry> getEntry(LocalDateTime start, LocalDateTime end) {
 		Log log = this.getLog();
 		
 		return log.getEntry(start, end);
 	}
 
 	@Override
-	public HashSet<Entry> getEntry(LocalDate data) {
+	public ArrayList<Entry> getEntry(LocalDate data) {
 		Log log = this.getLog();
 		
 		return log.getEntry(data);
@@ -95,17 +95,16 @@ public class LogController implements ILog{
 	@Override
 	public void printLogOperazione(String[] operazione) {
 		try {
-			BufferedWriter bw = new BufferedWriter(new FileWriter(fileLog));
+			BufferedWriter bw = new BufferedWriter(new FileWriter(fileLog, true));
 			
 			for(int i = 0; i < operazione.length; i++) {
 				bw.append(operazione[i]);
 			}
 			
-			bw.append("\n");
+			bw.newLine();
 			
 			bw.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -113,17 +112,16 @@ public class LogController implements ILog{
 	@Override
 	public void printLogMessaggio(String[] messaggio) {
 		try {
-			BufferedWriter bw = new BufferedWriter(new FileWriter(fileLog));
+			BufferedWriter bw = new BufferedWriter(new FileWriter(fileLog, true));
 			
 			for(int i = 0; i < messaggio.length; i++) {
 				bw.append(messaggio[i]);
 			}
 			
-			bw.append("\n");
+			bw.newLine();
 			
 			bw.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

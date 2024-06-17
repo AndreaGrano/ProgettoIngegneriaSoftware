@@ -12,4 +12,9 @@ public class BonificoNonRiconciliato extends Bonifico{
 	public BonificoNonRiconciliato() {
 		super();
 	}
+	
+	@Override
+	public String toString() {
+		return super.stampaBonifico();
+	}
 }
