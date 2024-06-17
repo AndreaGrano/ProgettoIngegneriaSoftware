@@ -1,39 +1,37 @@
 package interfacciaOperatore;
 
-import java.net.URI;
-import java.net.URL;
-import java.util.Collection;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.ResourceBundle;
+//import java.net.URL;
+//import java.util.Optional;
+//import java.util.ResourceBundle;
+
+import daoCredito.DAOFactoryCredito;
+import daoCreditoDB2.Db2DAOFactoryCredito;
+import dominioBonifico.BonificiNonRiconciliati;
 
 //import com.google.gson.*;
 
 import dominioBonifico.Bonifico;
 import dominioBonifico.BonificoNonRiconciliato;
+import dominioCredito.Cliente;
+import dominioCredito.Crediti;
+import dominioCredito.CreditiNonRiconciliati;
 import dominioCredito.Credito;
 import dominioCredito.CreditoNonRiconciliato;
 import dominioCredito.CreditoScaduto;
-import interfacciaAutenticazione.LoginDialog;
+import gestioneManualeCredito.GestioneManualeController;
+import interfacciaAmministratore.MsgDialog;
+//import interfacciaAutenticazione.LoginDialog;
 import javafx.fxml.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.*;
-import java.net.http.*;
-import java.net.http.HttpRequest.BodyPublisher;
-import java.net.http.HttpRequest.BodyPublishers;
-import java.net.http.HttpResponse.BodyHandler;
-import java.net.http.HttpResponse.BodyHandlers;
-import java.net.http.HttpResponse.ResponseInfo;
-import java.rmi.ConnectException;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
+import java.time.LocalDate;
 import javafx.scene.control.TextArea;
-import java.io.*;
-public class HomeOperatore implements Initializable {
+public class HomeOperatore /*implements Initializable */{
 	@FXML
 	private TextField iNome, iCognome, iTelefono, iIndirizzo, iCodFisc, iCausale, iImporto;
 	@FXML
@@ -50,76 +48,184 @@ public class HomeOperatore implements Initializable {
 	private ListView<CreditoScaduto> listCreditiScaduti;
 	@FXML
 	private TextArea infoApp;
-	private HttpClient httpClient=HttpClient.newHttpClient();
-	private static final int USERNAME=0, PASSWORD=1;
-	private String[] credenziali;
+//	private static final int USERNAME=0, PASSWORD=1;
+//	private String[] credenziali;
+//	@Override
+//	public void initialize(URL arg0, ResourceBundle arg1) {
+//		credenziali=new String[2];
+//		LoginDialog login=new LoginDialog();
+//		Optional<String[]> credenzialiIn=login.showAndWait();
+//		if(credenzialiIn.isEmpty())
+//			System.exit(0);
+//		else
+//			credenziali=credenzialiIn.get();
+//	}
+	@FXML
+	private void selezioneRegistrazione(ActionEvent event) {
+		iNome.clear();
+		iCognome.clear();
+		iTelefono.clear();
+		iIndirizzo.clear();
+		iCodFisc.clear();
+		
+		iCausale.clear();
+		iImporto.clear();
+	}
+	@FXML
+	private void selezioneRiconciliazione(ActionEvent event) {
+		GestioneManualeController controller = new GestioneManualeController(Db2DAOFactoryCredito.getDAOFactoryCredito(DAOFactoryCredito.DB2));
+
+		BonificiNonRiconciliati bonificiNonRiconciliati = controller.visualizzaBonificiNonRiconciliati();
+		ObservableList<BonificoNonRiconciliato> olBonifici = FXCollections.observableArrayList();
+		for(BonificoNonRiconciliato bonificoNonRiconciliato : bonificiNonRiconciliati) {
+			olBonifici.add(bonificoNonRiconciliato);
+		}
+		
+		Crediti crediti = controller.visualizzaCrediti();
+		ObservableList<CreditoNonRiconciliato> olCrediti = FXCollections.observableArrayList();
+		for(Credito credito : crediti) {
+			if(credito instanceof CreditoNonRiconciliato) {
+				olCrediti.add((CreditoNonRiconciliato) credito);
+			}
+		}
+		
+		listBonificiNonRiconciliati.setItems(olBonifici);
+		listCreditiNonRiconciliati.setItems(olCrediti);
+	}
+	@FXML
+	private void selezioneVisualizzaBonifici(ActionEvent event) {
+		listTuttiBonifici.setItems(FXCollections.observableArrayList());
+	}
+	@FXML
+	private void selezioneVisualizzaCrediti(ActionEvent event) {
+		listTuttiCrediti.setItems(FXCollections.observableArrayList());
+	}
+	@FXML
+	private void selezioneVisualizzaCreditiScaduti(ActionEvent event) {
+		listCreditiScaduti.setItems(FXCollections.observableArrayList());
+	}
+	@FXML
+	private void selezioneConfigurazione(ActionEvent event) {
+		infoApp.clear();
+	}
 	@FXML
 	private void eseguiInserimentoCredito(ActionEvent event)
 	{
-//		HttpRequest.Builder reqBuilder=HttpRequest.newBuilder(URI.create("http://localhost:8080/ServerCreditoManuale/RegistrazioneCreditoServlet"));
-//		JsonObject jsonData=new JsonObject();
-//		jsonData.addProperty("nome",iNome.getText());
-//		jsonData.addProperty("cognome", iCognome.getText());
-//		jsonData.addProperty("telefono", iTelefono.getText());
-//		jsonData.addProperty("indirizzo", iIndirizzo.getText());
-//		DateTimeFormatter formatter=DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(Locale.ITALIAN);
-//		jsonData.addProperty("dataNascita", iDataNascita.getValue().format(formatter));
-//		jsonData.addProperty("CF", iCodFisc.getText());
-//		jsonData.addProperty("causale", iCausale.getText());
-//		jsonData.addProperty("importo", iImporto.getText());
-//		jsonData.addProperty("dataStipula", iDataStipula.getValue().format(formatter));
-//		System.out.println(jsonData.toString());
-//		BodyPublisher bodyPub=BodyPublishers.ofString(jsonData.toString());
-//		HttpRequest req = reqBuilder.POST(bodyPub).build();
-//		httpClient.sendAsync(req, BodyHandlers.ofString());
+		String nome = iNome.getCharacters().toString();
+		if(nome.isBlank()) {
+			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Nome cliente mancante", "Inserire il nome del cliente");
+			return;
+		}
+		
+		String cognome = iCognome.getCharacters().toString();
+		if(cognome.isBlank()) {
+			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Cognome cliente mancante", "Inserire il cognome del cliente");
+			return;
+		}
+		
+		LocalDate dataNascita = iDataNascita.getValue();
+		
+		String telefono = iTelefono.getCharacters().toString();
+		if(telefono.isBlank()) {
+			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Telefono cliente mancante", "Inserire il telefono del cliente");
+			return;
+		}
+		
+		String codFisc = iCodFisc.getCharacters().toString();
+		if(codFisc.isBlank()) {
+			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Codice fiscale cliente mancante", "Inserire il codice fiscale del cliente");
+			return;
+		}
+		
+		Cliente cliente = new Cliente();
+		cliente.setNome(nome);
+		cliente.setCognome(cognome);
+		cliente.setDataNascita(dataNascita);
+		cliente.setTelefono(telefono);
+		cliente.setCodiceFiscale(codFisc);
+		
+		String causale = iCausale.getCharacters().toString();
+		if(causale.isBlank()) {
+			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Causale credito mancante", "Inserire la causale del credito");
+			return;
+		}
+		
+		LocalDate dataStipula = iDataStipula.getValue();
+		
+		double importo;
+		try {
+			importo = Double.parseDouble(iImporto.getCharacters().toString());
+			if(importo <= 0) {
+				MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Importo credito non positivo", "L'importo del credito deve essere positivo");
+				return;
+			}
+		} catch (NullPointerException | NumberFormatException e) {
+			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Importo credito mancante", "Inserire l'importo del credito");
+			return;
+		}
+		
+		GestioneManualeController controller = new GestioneManualeController(Db2DAOFactoryCredito.getDAOFactoryCredito(DAOFactoryCredito.DB2));
+		int esito = controller.registraCredito(cliente, importo, dataStipula, causale);
+		
+		if(esito == -1) {
+			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Cliente in blacklist", "Il cliente è in blacklist");
+			return;
+		}
+		
+		if(esito == -2) {
+			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Causale mal formattata", "Inserire una causale nel formato in vigore");
+			return;
+		}
 	}
 	@FXML
 	private void eseguiRiconciliazioneManuale(ActionEvent event)
 	{
-//		BonificoNonRiconciliato bonifico=listBonificiNonRiconciliati.getSelectionModel().getSelectedItem();
-//		ObservableList<CreditoNonRiconciliato> crediti=listCreditiNonRiconciliati.getSelectionModel().getSelectedItems();
-//		Gson g=new Gson();
-//		HttpRequest.Builder reqBuilder=HttpRequest.newBuilder(URI.create("http://localhost:8080/ServerCreditoManuale/RiconciliazioneManualeServlet"));
-//		String jsonBonifico=g.toJson(bonifico);
-//		String jsonListaCrediti=g.toJson(crediti);
-//		BodyPublisher bodyPub=BodyPublishers.ofString(jsonBonifico+"\n"+jsonListaCrediti);
-//		HttpRequest req=reqBuilder.POST(bodyPub).build();
-//		httpClient.sendAsync(req, BodyHandlers.ofString());
-	}
-	private void scriviFile(Collection<? extends Object> lista, String nomefile)
-	{
-		PrintWriter pw=null;
-		try {
-			pw=new PrintWriter(nomefile);
-			for(Object element : lista)
-			{
-				pw.println(element);
-			}
+		BonificoNonRiconciliato bonificoNonRiconciliato = listBonificiNonRiconciliati.getSelectionModel().getSelectedItem();
+		ObservableList<CreditoNonRiconciliato> creditiSelezionati = listCreditiNonRiconciliati.getSelectionModel().getSelectedItems();
+		
+		CreditiNonRiconciliati creditiNonRiconciliati = new CreditiNonRiconciliati();
+		for(CreditoNonRiconciliato creditoNonRiconciliato : creditiSelezionati) {
+			creditiNonRiconciliati.add(creditoNonRiconciliato);
 		}
-		catch(IOException ioe)
-		{
-			MsgDialog.showAndWait(AlertType.ERROR, "Errore scrittura file", "Impossibile scrivere sul file"+nomefile, ioe.getMessage());
-		}
-		finally
-		{
-			if(pw!=null)
-				pw.close();
-		}
+		
+		GestioneManualeController controller = new GestioneManualeController(Db2DAOFactoryCredito.getDAOFactoryCredito(DAOFactoryCredito.DB2));
+		controller.riconciliazioneManuale(bonificoNonRiconciliato, creditiNonRiconciliati);
 	}
 	@FXML
 	private void eseguiScaricamentoBonifici(ActionEvent event)
 	{
-		scriviFile(listTuttiBonifici.getItems(), "bonifici.txt");
+		GestioneManualeController controller = new GestioneManualeController(Db2DAOFactoryCredito.getDAOFactoryCredito(DAOFactoryCredito.DB2));
+		
+		ObservableList<Bonifico> olBonifici = FXCollections.observableArrayList();
+		for(Bonifico bonifico : controller.visualizzaTuttiBonifici()) {
+			olBonifici.add(bonifico);
+		}
+		
+		listTuttiBonifici.setItems(olBonifici);
 	}
 	@FXML
 	private void eseguiScaricamentoCrediti(ActionEvent event)
 	{
-		scriviFile(listTuttiCrediti.getItems(), "crediti.txt");
+		GestioneManualeController controller = new GestioneManualeController(Db2DAOFactoryCredito.getDAOFactoryCredito(DAOFactoryCredito.DB2));
+		
+		ObservableList<Credito> olCrediti = FXCollections.observableArrayList();
+		for(Credito credito : controller.visualizzaCrediti()) {
+			olCrediti.add(credito);
+		}
+		
+		listTuttiCrediti.setItems(olCrediti);
 	}
 	@FXML
 	private void eseguiScaricamentoCreditiScaduti(ActionEvent event)
 	{
-		scriviFile(listCreditiScaduti.getItems(), "crediti_scaduti.txt");
+		GestioneManualeController controller = new GestioneManualeController(Db2DAOFactoryCredito.getDAOFactoryCredito(DAOFactoryCredito.DB2));
+
+		ObservableList<CreditoScaduto> olCreditiScaduti = FXCollections.observableArrayList();
+		for(CreditoScaduto creditoScaduto : controller.visualizzaCreditiScaduti()) {
+			olCreditiScaduti.add(creditoScaduto);
+		}
+		
+		listCreditiScaduti.setItems(olCreditiScaduti);
 	}
 	@FXML
 	private void visualizzaVersione(ActionEvent event)
@@ -134,42 +240,7 @@ public class HomeOperatore implements Initializable {
 	@FXML
 	private void eseguiInstallaAggiornamenti(ActionEvent event)
 	{
-		
-	}
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-//		credenziali=new String[2];
-//		LoginDialog login=new LoginDialog();
-//		Optional<String[]> credenzialiIn=login.showAndWait();
-//		if(credenzialiIn.isEmpty())
-//			System.exit(0);
-//		else
-//			credenziali=credenzialiIn.get();
-//		try {
-//			BodyHandler<String> respHandler=BodyHandlers.ofString();
-//			HttpRequest builtReq=HttpRequest.newBuilder()
-//					  .uri(URI.create("http://localhost:8080/ServerAutenticazioneGestioneOperatori/RetrieveSessionServlet"))
-//					  .build();
-//			HttpResponse<String> resp=httpClient.send(builtReq, respHandler);
-//			if(!Boolean.valueOf(resp.body()))
-//			{
-//				builtReq=HttpRequest.newBuilder()
-//						  .uri(URI.create("http://localhost:8080/ServerAutenticazioneGestioneOperatori/LoginServlet"))
-//						  .header("Content-Type", "application/x-www-form-urlencoded")
-//						  .POST(HttpRequest.BodyPublishers.ofString("username="+credenziali[USERNAME]+"&password="+credenziali[PASSWORD]))
-//						  .build();
-//				resp=httpClient.send(builtReq, respHandler);
-//				if(resp.body().contains("allowed"))
-//				{
-//					MsgDialog.showAndWait(AlertType.WARNING, "Errore di autenticazione", "Credenziali errate", "");
-//					System.exit(0);
-//				}
-//			}
-//		}catch (InterruptedException | IOException e) {
-//			MsgDialog.showAndWait(AlertType.ERROR, "Errore di autenticazione", "Autenticazione interrotta a causa dell'errore seguente:", e.getClass().getName()+": "+e.getMessage());
-//			e.printStackTrace();
-//			System.exit(-1);
-//		}
-//		
+		MsgDialog.showAndWait(AlertType.INFORMATION, "Info", "Aggiornamenti", "Nessun aggiornamento disponibile");
+		return;
 	}
 }

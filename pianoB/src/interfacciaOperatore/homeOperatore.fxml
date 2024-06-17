@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="955.0" stylesheets="@Grafica.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfacciaOperatore.HomeOperatore">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" stylesheets="@Grafica.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfacciaOperatore.HomeOperatore">
    <children>
       <ImageView fitHeight="500.0" fitWidth="800.0" opacity="0.5" pickOnBounds="true">
          <image>
@@ -25,7 +25,7 @@
       </ImageView>
       <TabPane prefHeight="500.0" prefWidth="893.0" tabClosingPolicy="UNAVAILABLE">
          <tabs>
-            <Tab text="Registrazione credito">
+            <Tab onSelectionChanged="#selezioneRegistrazione" text="Registrazione credito">
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
@@ -179,7 +179,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Riconciliazione manuale">
+            <Tab onSelectionChanged="#selezioneRiconciliazione" text="Riconciliazione manuale">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="597.0" prefWidth="801.0">
                      <children>
@@ -204,7 +204,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Visualizza bonifici">
+            <Tab onSelectionChanged="#selezioneVisualizzaBonifici" text="Visualizza bonifici">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="214.0" prefWidth="678.0">
                      <children>
@@ -214,7 +214,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Visualizza crediti">
+            <Tab onSelectionChanged="#selezioneVisualizzaCrediti" text="Visualizza crediti">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -224,7 +224,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Visualizza crediti scaduti">
+            <Tab onSelectionChanged="#selezioneVisualizzaCreditiScaduti" text="Visualizza crediti scaduti">
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
@@ -238,7 +238,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Configurazione">
+            <Tab onSelectionChanged="#selezioneConfigurazione" text="Configurazione">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>

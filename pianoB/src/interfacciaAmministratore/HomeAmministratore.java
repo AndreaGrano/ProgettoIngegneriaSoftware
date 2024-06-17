@@ -226,50 +226,48 @@ public class HomeAmministratore implements Initializable {
 		Operatore operatore = new Operatore();
 		
 		String nomeOperatore = iNomeOperatore.getCharacters().toString();
-		if(nomeOperatore.length() <= 0) {
+		if(nomeOperatore.isBlank()) {
 			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Nome operatore mancante", "Inserire il nome dell'operatore");
 			return;
 		}
 		operatore.setNome(nomeOperatore);
 		
 		String cognomeOperatore = iNomeOperatore.getCharacters().toString();
-		if(cognomeOperatore.length() <= 0) {
+		if(cognomeOperatore.isBlank()) {
 			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Cognome operatore mancante", "Inserire il cognome dell'operatore");
 			return;
 		}
 		operatore.setCognome(cognomeOperatore);
 		
 		String telefonoOperatore = iTelefonoOperatore.getCharacters().toString();
-		if(telefonoOperatore.length() <= 0) {
+		if(telefonoOperatore.isBlank()) {
 			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Telefono operatore mancante", "Inserire il numero di telefono dell'operatore");
 			return;
 		}
 		operatore.setTelefono(telefonoOperatore);
 		
 		String usernameOperatore = iUsrOperatore.getCharacters().toString();
-		if(usernameOperatore.length() <= 0) {
+		if(usernameOperatore.isBlank()) {
 			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Username operatore mancante", "Inserire lo username dell'operatore");
 			return;
 		}
 		operatore.setUsername(usernameOperatore);
 		
 		String pwdOperatore = iPwdOperatore.getCharacters().toString();
-		if(pwdOperatore.length() <= 0) {
+		if(pwdOperatore.isBlank()) {
 			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Password operatore mancante", "Inserire la password dell'operatore");
 			return;
 		}
 		
 		String confPwdOperatore = iConfPwdOp.getCharacters().toString();
-		if(confPwdOperatore.length() <= 0) {
+		if(confPwdOperatore.isBlank()) {
 			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Conferma password operatore mancante", "Reinserire la password dell'operatore per confermare");
 			return;
 		}
 		
 		if(!pwdOperatore.equals(confPwdOperatore)) {
-			if(pwdOperatore.length() <= 0) {
-				MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Conferma password errata", "Reinserire la password dell'operatore per confermare");
-				return;
-			}
+			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Conferma password errata", "Reinserire la password dell'operatore per confermare");
+			return;
 		}
 		
 		MessageDigest digest = null;
