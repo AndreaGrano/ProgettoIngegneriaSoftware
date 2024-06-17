@@ -7,7 +7,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import com.google.gson.*;
+//import com.google.gson.*;
 
 import dominioBonifico.Bonifico;
 import dominioBonifico.BonificoNonRiconciliato;
@@ -56,35 +56,35 @@ public class HomeOperatore implements Initializable {
 	@FXML
 	private void eseguiInserimentoCredito(ActionEvent event)
 	{
-		HttpRequest.Builder reqBuilder=HttpRequest.newBuilder(URI.create("http://localhost:8080/ServerCreditoManuale/RegistrazioneCreditoServlet"));
-		JsonObject jsonData=new JsonObject();
-		jsonData.addProperty("nome",iNome.getText());
-		jsonData.addProperty("cognome", iCognome.getText());
-		jsonData.addProperty("telefono", iTelefono.getText());
-		jsonData.addProperty("indirizzo", iIndirizzo.getText());
-		DateTimeFormatter formatter=DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(Locale.ITALIAN);
-		jsonData.addProperty("dataNascita", iDataNascita.getValue().format(formatter));
-		jsonData.addProperty("CF", iCodFisc.getText());
-		jsonData.addProperty("causale", iCausale.getText());
-		jsonData.addProperty("importo", iImporto.getText());
-		jsonData.addProperty("dataStipula", iDataStipula.getValue().format(formatter));
-		System.out.println(jsonData.toString());
-		BodyPublisher bodyPub=BodyPublishers.ofString(jsonData.toString());
-		HttpRequest req = reqBuilder.POST(bodyPub).build();
-		httpClient.sendAsync(req, BodyHandlers.ofString());
+//		HttpRequest.Builder reqBuilder=HttpRequest.newBuilder(URI.create("http://localhost:8080/ServerCreditoManuale/RegistrazioneCreditoServlet"));
+//		JsonObject jsonData=new JsonObject();
+//		jsonData.addProperty("nome",iNome.getText());
+//		jsonData.addProperty("cognome", iCognome.getText());
+//		jsonData.addProperty("telefono", iTelefono.getText());
+//		jsonData.addProperty("indirizzo", iIndirizzo.getText());
+//		DateTimeFormatter formatter=DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(Locale.ITALIAN);
+//		jsonData.addProperty("dataNascita", iDataNascita.getValue().format(formatter));
+//		jsonData.addProperty("CF", iCodFisc.getText());
+//		jsonData.addProperty("causale", iCausale.getText());
+//		jsonData.addProperty("importo", iImporto.getText());
+//		jsonData.addProperty("dataStipula", iDataStipula.getValue().format(formatter));
+//		System.out.println(jsonData.toString());
+//		BodyPublisher bodyPub=BodyPublishers.ofString(jsonData.toString());
+//		HttpRequest req = reqBuilder.POST(bodyPub).build();
+//		httpClient.sendAsync(req, BodyHandlers.ofString());
 	}
 	@FXML
 	private void eseguiRiconciliazioneManuale(ActionEvent event)
 	{
-		BonificoNonRiconciliato bonifico=listBonificiNonRiconciliati.getSelectionModel().getSelectedItem();
-		ObservableList<CreditoNonRiconciliato> crediti=listCreditiNonRiconciliati.getSelectionModel().getSelectedItems();
-		Gson g=new Gson();
-		HttpRequest.Builder reqBuilder=HttpRequest.newBuilder(URI.create("http://localhost:8080/ServerCreditoManuale/RiconciliazioneManualeServlet"));
-		String jsonBonifico=g.toJson(bonifico);
-		String jsonListaCrediti=g.toJson(crediti);
-		BodyPublisher bodyPub=BodyPublishers.ofString(jsonBonifico+"\n"+jsonListaCrediti);
-		HttpRequest req=reqBuilder.POST(bodyPub).build();
-		httpClient.sendAsync(req, BodyHandlers.ofString());
+//		BonificoNonRiconciliato bonifico=listBonificiNonRiconciliati.getSelectionModel().getSelectedItem();
+//		ObservableList<CreditoNonRiconciliato> crediti=listCreditiNonRiconciliati.getSelectionModel().getSelectedItems();
+//		Gson g=new Gson();
+//		HttpRequest.Builder reqBuilder=HttpRequest.newBuilder(URI.create("http://localhost:8080/ServerCreditoManuale/RiconciliazioneManualeServlet"));
+//		String jsonBonifico=g.toJson(bonifico);
+//		String jsonListaCrediti=g.toJson(crediti);
+//		BodyPublisher bodyPub=BodyPublishers.ofString(jsonBonifico+"\n"+jsonListaCrediti);
+//		HttpRequest req=reqBuilder.POST(bodyPub).build();
+//		httpClient.sendAsync(req, BodyHandlers.ofString());
 	}
 	private void scriviFile(Collection<? extends Object> lista, String nomefile)
 	{
@@ -138,38 +138,38 @@ public class HomeOperatore implements Initializable {
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		credenziali=new String[2];
-		LoginDialog login=new LoginDialog();
-		Optional<String[]> credenzialiIn=login.showAndWait();
-		if(credenzialiIn.isEmpty())
-			System.exit(0);
-		else
-			credenziali=credenzialiIn.get();
-		try {
-			BodyHandler<String> respHandler=BodyHandlers.ofString();
-			HttpRequest builtReq=HttpRequest.newBuilder()
-					  .uri(URI.create("http://localhost:8080/ServerAutenticazioneGestioneOperatori/RetrieveSessionServlet"))
-					  .build();
-			HttpResponse<String> resp=httpClient.send(builtReq, respHandler);
-			if(!Boolean.valueOf(resp.body()))
-			{
-				builtReq=HttpRequest.newBuilder()
-						  .uri(URI.create("http://localhost:8080/ServerAutenticazioneGestioneOperatori/LoginServlet"))
-						  .header("Content-Type", "application/x-www-form-urlencoded")
-						  .POST(HttpRequest.BodyPublishers.ofString("username="+credenziali[USERNAME]+"&password="+credenziali[PASSWORD]))
-						  .build();
-				resp=httpClient.send(builtReq, respHandler);
-				if(resp.body().contains("allowed"))
-				{
-					MsgDialog.showAndWait(AlertType.WARNING, "Errore di autenticazione", "Credenziali errate", "");
-					System.exit(0);
-				}
-			}
-		}catch (InterruptedException | IOException e) {
-			MsgDialog.showAndWait(AlertType.ERROR, "Errore di autenticazione", "Autenticazione interrotta a causa dell'errore seguente:", e.getClass().getName()+": "+e.getMessage());
-			e.printStackTrace();
-			System.exit(-1);
-		}
-		
+//		credenziali=new String[2];
+//		LoginDialog login=new LoginDialog();
+//		Optional<String[]> credenzialiIn=login.showAndWait();
+//		if(credenzialiIn.isEmpty())
+//			System.exit(0);
+//		else
+//			credenziali=credenzialiIn.get();
+//		try {
+//			BodyHandler<String> respHandler=BodyHandlers.ofString();
+//			HttpRequest builtReq=HttpRequest.newBuilder()
+//					  .uri(URI.create("http://localhost:8080/ServerAutenticazioneGestioneOperatori/RetrieveSessionServlet"))
+//					  .build();
+//			HttpResponse<String> resp=httpClient.send(builtReq, respHandler);
+//			if(!Boolean.valueOf(resp.body()))
+//			{
+//				builtReq=HttpRequest.newBuilder()
+//						  .uri(URI.create("http://localhost:8080/ServerAutenticazioneGestioneOperatori/LoginServlet"))
+//						  .header("Content-Type", "application/x-www-form-urlencoded")
+//						  .POST(HttpRequest.BodyPublishers.ofString("username="+credenziali[USERNAME]+"&password="+credenziali[PASSWORD]))
+//						  .build();
+//				resp=httpClient.send(builtReq, respHandler);
+//				if(resp.body().contains("allowed"))
+//				{
+//					MsgDialog.showAndWait(AlertType.WARNING, "Errore di autenticazione", "Credenziali errate", "");
+//					System.exit(0);
+//				}
+//			}
+//		}catch (InterruptedException | IOException e) {
+//			MsgDialog.showAndWait(AlertType.ERROR, "Errore di autenticazione", "Autenticazione interrotta a causa dell'errore seguente:", e.getClass().getName()+": "+e.getMessage());
+//			e.printStackTrace();
+//			System.exit(-1);
+//		}
+//		
 	}
 }
