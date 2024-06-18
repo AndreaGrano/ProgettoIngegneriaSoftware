@@ -300,8 +300,17 @@ public class HomeAmministratore implements Initializable {
 			log.setItems(olLog);
 		} catch(Exception e) {
 			LogController controllerLog = new LogController();
-			String[] operazione = {LocalDateTime.now().toString(), "Creazione nuovo file di log"};
+			String[] operazione = {LocalDateTime.now().toString(), " - Creazione nuovo file di log - ", "Sistema"};
 			controllerLog.printLogOperazione(operazione);
+
+			Log entries = controller.getLog();
+			
+			ObservableList<Entry> olLog = FXCollections.observableArrayList();
+			for(Entry entry : entries) {
+				olLog.add(entry);
+			}
+			
+			log.setItems(olLog);
 		}
 	}
 	@FXML
@@ -512,14 +521,19 @@ public class HomeAmministratore implements Initializable {
 		LocalDateTime inizio = LocalDateTime.of(dataInizio, LocalTime.of(0, 0));
 		LocalDateTime fine = LocalDateTime.of(dataFine, LocalTime.of(0, 0));
 		
-		ArrayList<Entry> logFiltrato = controller.getEntry(inizio, fine);
-		
-		ObservableList<Entry> olLog = FXCollections.observableArrayList();
-		for(Entry entry : logFiltrato) {
-			olLog.add(entry);
+		try {
+			ArrayList<Entry> logFiltrato = controller.getEntry(inizio, fine);
+			
+			ObservableList<Entry> olLog = FXCollections.observableArrayList();
+			for(Entry entry : logFiltrato) {
+				olLog.add(entry);
+			}
+			
+			log.setItems(olLog);
+		} catch(Exception e) {
+			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Log mancante", "Riprovare");
+			
 		}
-		
-		log.setItems(olLog);
 	}
 	@FXML
 	private void selezioneRegistrazione() {
