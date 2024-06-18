@@ -289,14 +289,20 @@ public class HomeAmministratore implements Initializable {
 	private void selezioneLog() {
 		LogController controller = new LogController();
 		
-		Log entries = controller.getLog();
-		
-		ObservableList<Entry> olLog = FXCollections.observableArrayList();
-		for(Entry entry : entries) {
-			olLog.add(entry);
+		try{ 
+			Log entries = controller.getLog();
+			
+			ObservableList<Entry> olLog = FXCollections.observableArrayList();
+			for(Entry entry : entries) {
+				olLog.add(entry);
+			}
+			
+			log.setItems(olLog);
+		} catch(Exception e) {
+			LogController controllerLog = new LogController();
+			String[] operazione = {LocalDateTime.now().toString(), "Creazione nuovo file di log"};
+			controllerLog.printLogOperazione(operazione);
 		}
-		
-		log.setItems(olLog);
 	}
 	@FXML
 	private void aggiornaDati(ActionEvent event)

@@ -164,7 +164,7 @@ public class Db2OperatoreDAO implements OperatoreDAO {
 	@Override
 	public Operatore readByUsername(String username) {
 		LogController logController = new LogController();
-		String[] operazione = {LocalDateTime.now().toString(), " - read Operatore (username) - ", this.getClass().getSimpleName()};
+		String[] operazione = {LocalDateTime.now().toString(), " - read Operatore - ", this.getClass().getSimpleName()};
 		logController.printLogOperazione(operazione);
 		Operatore operatore = null;
 		if (username == null) {
@@ -202,7 +202,7 @@ public class Db2OperatoreDAO implements OperatoreDAO {
 	@Override
 	public String readHash(String username) {
 		LogController logController = new LogController();
-		String[] operazione = {LocalDateTime.now().toString(), " - read hash (username) - ", this.getClass().getSimpleName()};
+		String[] operazione = {LocalDateTime.now().toString(), " - read hash - ", this.getClass().getSimpleName()};
 		logController.printLogOperazione(operazione);
 		String hash = null;
 		if (username == null) {
