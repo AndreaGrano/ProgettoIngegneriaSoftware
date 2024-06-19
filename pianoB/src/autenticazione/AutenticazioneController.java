@@ -41,7 +41,8 @@ public class AutenticazioneController implements IAutenticazione{
 		
 		//si legge l'hash dal DB e si ritorna true se coincide con quello passato, false altrimenti
 		String hashOperatore = operatoreDAO.readHash(username);
-		if(hash.equals(hashOperatore)) {
+
+		if(hash.equals(hashOperatore) && (!operatoreDAO.isBloccato(operatore))) {
 			return true;
 		} else {
 			return false;

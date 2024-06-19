@@ -19,7 +19,7 @@ public class ImpostazioneParametriController implements IImpostazioneParametri{
 		LogController logController = new LogController();
 		String[] operazione = {LocalDateTime.now().toString(), " - impostaIntervalloRitardoCredito - ", this.getClass().getSimpleName()};
 		logController.printLogOperazione(operazione);
-		String[] messaggio = {LocalDateTime.now().toString(), "ImpostaIntervalloRitardoCredito a: " + intervallo, "invio", this.getClass().getSimpleName()};
+		String[] messaggio = {LocalDateTime.now().toString(), " - ImpostaIntervalloRitardoCredito a: " + intervallo, " - invio - ", this.getClass().getSimpleName()};
 		logController.printLogMessaggio(messaggio);
 		
 		//si aggiorna il DB
@@ -33,7 +33,7 @@ public class ImpostazioneParametriController implements IImpostazioneParametri{
 		LogController logController = new LogController();
 		String[] operazione = {LocalDateTime.now().toString(), " - impostaIntervalloRitardoBlacklist - ", this.getClass().getSimpleName()};
 		logController.printLogOperazione(operazione);
-		String[] messaggio = {LocalDateTime.now().toString(), "ImpostaIntervalloRitardoBlacklist a: " + intervallo, "invio", this.getClass().getSimpleName()};
+		String[] messaggio = {LocalDateTime.now().toString(), " - ImpostaIntervalloRitardoBlacklist a: " + intervallo, " - invio - ", this.getClass().getSimpleName()};
 		logController.printLogMessaggio(messaggio);
 				
 		//si aggiorna il DB
@@ -47,7 +47,7 @@ public class ImpostazioneParametriController implements IImpostazioneParametri{
 		LogController logController = new LogController();
 		String[] operazione = {LocalDateTime.now().toString(), " - impostaPercentualeMulta - ", this.getClass().getSimpleName()};
 		logController.printLogOperazione(operazione);
-		String[] messaggio = {LocalDateTime.now().toString(), "ImpostaPercentualeMulta a: " + percentualeMulta, "invio", this.getClass().getSimpleName()};
+		String[] messaggio = {LocalDateTime.now().toString(), " - ImpostaPercentualeMulta a: " + percentualeMulta, " - invio - ", this.getClass().getSimpleName()};
 		logController.printLogMessaggio(messaggio);
 						
 		//si aggiorna il DB
@@ -61,7 +61,7 @@ public class ImpostazioneParametriController implements IImpostazioneParametri{
 		LogController logController = new LogController();
 		String[] operazione = {LocalDateTime.now().toString(), " - impostaFormatoCausale - ", this.getClass().getSimpleName()};
 		logController.printLogOperazione(operazione);
-		String[] messaggio = {LocalDateTime.now().toString(), "ImpostaFormatoCausale a: " + formatoCausale, "invio", this.getClass().getSimpleName()};
+		String[] messaggio = {LocalDateTime.now().toString(), " - ImpostaFormatoCausale a: " + formatoCausale, " - invio - ", this.getClass().getSimpleName()};
 		logController.printLogMessaggio(messaggio);
 								
 		//si aggiorna il DB

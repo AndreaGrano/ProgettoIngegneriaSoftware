@@ -1,14 +1,10 @@
 package interfacciaOperatore;
 
-//import java.net.URL;
-//import java.util.Optional;
-//import java.util.ResourceBundle;
-
 import daoCredito.DAOFactoryCredito;
 import daoCreditoDB2.Db2DAOFactoryCredito;
+import daoOperatori.DAOFactoryOperatori;
+import daoOperatoriDB2.Db2DAOFactoryOperatori;
 import dominioBonifico.BonificiNonRiconciliati;
-
-//import com.google.gson.*;
 
 import dominioBonifico.Bonifico;
 import dominioBonifico.BonificoNonRiconciliato;
@@ -19,19 +15,31 @@ import dominioCredito.Credito;
 import dominioCredito.CreditoNonRiconciliato;
 import dominioCredito.CreditoScaduto;
 import gestioneManualeCredito.GestioneManualeController;
+import gestioneOperatori.GestioneOperatoriController;
 import interfacciaAmministratore.MsgDialog;
-//import interfacciaAutenticazione.LoginDialog;
+import interfacciaAutenticazione.LoginDialog;
 import javafx.fxml.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.*;
+
+import java.net.URL;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Optional;
+import java.util.ResourceBundle;
+
+import autenticazione.AutenticazioneController;
 import javafx.scene.control.TextArea;
-public class HomeOperatore /*implements Initializable */{
+
+public class HomeOperatore implements Initializable {
+	private static final int USERNAME=0, HASH=1;
+	private String[] credenziali;
 	@FXML
 	private TextField iNome, iCognome, iTelefono, iIndirizzo, iCodFisc, iCausale, iImporto;
 	@FXML
@@ -48,31 +56,60 @@ public class HomeOperatore /*implements Initializable */{
 	private ListView<CreditoScaduto> listCreditiScaduti;
 	@FXML
 	private TextArea infoApp;
-//	private static final int USERNAME=0, PASSWORD=1;
-//	private String[] credenziali;
-//	@Override
-//	public void initialize(URL arg0, ResourceBundle arg1) {
-//		credenziali=new String[2];
-//		LoginDialog login=new LoginDialog();
-//		Optional<String[]> credenzialiIn=login.showAndWait();
-//		if(credenzialiIn.isEmpty())
-//			System.exit(0);
-//		else
-//			credenziali=credenzialiIn.get();
-//	}
-	@FXML
-	private void selezioneRegistrazione(ActionEvent event) {
-		iNome.clear();
-		iCognome.clear();
-		iTelefono.clear();
-		iIndirizzo.clear();
-		iCodFisc.clear();
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		boolean autenticato = false;
+		HashMap<String,Integer> errori = new HashMap<String,Integer>();
+		AutenticazioneController controller = new AutenticazioneController(Db2DAOFactoryOperatori.getDAOFactoryOperatori(DAOFactoryCredito.DB2));
+		do {
+			credenziali=new String[2];
+			LoginDialog login=new LoginDialog();
+			Optional<String[]> credenzialiIn = login.showAndWait();
+			if(credenzialiIn.isEmpty())
+				System.exit(0);
+			else
+				credenziali=credenzialiIn.get();
+			
+			try {
+				autenticato = controller.verificaCredenziali(credenziali[USERNAME], credenziali[HASH]);
+				
+				if(!autenticato) {
+					errori.merge(credenziali[USERNAME], 1, Integer::sum);
+			
+					if(errori.get(credenziali[USERNAME]) >= 3) {
+						GestioneOperatoriController controllerOperatori = new GestioneOperatoriController(Db2DAOFactoryOperatori.getDAOFactoryOperatori(DAOFactoryOperatori.DB2));
+						controllerOperatori.bloccaOperatore(credenziali[USERNAME]);
+						
+						MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Operatore bloccato", "L'operatore " + credenziali[USERNAME] + " è stato bloccato, contattare l'amministratore");
+					} else {
+						MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Credenziali errate o operatore bloccato", "Reinserire le credenziali o contattare l'amministratore");
+					}
+				}
+			} catch(IllegalArgumentException e) {
+				MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Operatore inesistente", "L'operatore " + credenziali[USERNAME] + " è inesistente");
+			}
+			
+			if(credenziali[USERNAME].equals("admin")) {
+				MsgDialog.showAndWait(AlertType.WARNING, "Attenzione", "Client operatore", "Questo è un cliente operatore, le funzionalità dell'amministratore non sono disponibili");
+			}
+		} while(!autenticato);
 		
-		iCausale.clear();
-		iImporto.clear();
+		listCreditiNonRiconciliati.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+	}
+	
+	@FXML
+	private void selezioneRegistrazione() {
+		iNome.setText("");
+		iCognome.setText("");
+		iTelefono.setText("");
+		iIndirizzo.setText("");
+		iCodFisc.setText("");
+		
+		iCausale.setText("");
+		iImporto.setText("");
 	}
 	@FXML
-	private void selezioneRiconciliazione(ActionEvent event) {
+	private void selezioneRiconciliazione() {
 		GestioneManualeController controller = new GestioneManualeController(Db2DAOFactoryCredito.getDAOFactoryCredito(DAOFactoryCredito.DB2));
 
 		BonificiNonRiconciliati bonificiNonRiconciliati = controller.visualizzaBonificiNonRiconciliati();
@@ -93,23 +130,23 @@ public class HomeOperatore /*implements Initializable */{
 		listCreditiNonRiconciliati.setItems(olCrediti);
 	}
 	@FXML
-	private void selezioneVisualizzaBonifici(ActionEvent event) {
+	private void selezioneVisualizzaBonifici() {
 		listTuttiBonifici.setItems(FXCollections.observableArrayList());
 	}
 	@FXML
-	private void selezioneVisualizzaCrediti(ActionEvent event) {
+	private void selezioneVisualizzaCrediti() {
 		listTuttiCrediti.setItems(FXCollections.observableArrayList());
 	}
 	@FXML
-	private void selezioneVisualizzaCreditiScaduti(ActionEvent event) {
+	private void selezioneVisualizzaCreditiScaduti() {
 		listCreditiScaduti.setItems(FXCollections.observableArrayList());
 	}
 	@FXML
-	private void selezioneConfigurazione(ActionEvent event) {
-		infoApp.clear();
+	private void selezioneConfigurazione() {
+		infoApp.setText("");
 	}
 	@FXML
-	private void eseguiInserimentoCredito(ActionEvent event)
+	private void eseguiInserimentoCredito()
 	{
 		String nome = iNome.getCharacters().toString();
 		if(nome.isBlank()) {
@@ -131,6 +168,12 @@ public class HomeOperatore /*implements Initializable */{
 			return;
 		}
 		
+		String indirizzo = iIndirizzo.getCharacters().toString();
+		if(indirizzo.isBlank()) {
+			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Indirizzo cliente mancante", "Inserire l'indirizzo del cliente");
+			return;
+		}
+		
 		String codFisc = iCodFisc.getCharacters().toString();
 		if(codFisc.isBlank()) {
 			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Codice fiscale cliente mancante", "Inserire il codice fiscale del cliente");
@@ -142,6 +185,7 @@ public class HomeOperatore /*implements Initializable */{
 		cliente.setCognome(cognome);
 		cliente.setDataNascita(dataNascita);
 		cliente.setTelefono(telefono);
+		cliente.setIndirizzo(indirizzo);
 		cliente.setCodiceFiscale(codFisc);
 		
 		String causale = iCausale.getCharacters().toString();
@@ -190,6 +234,8 @@ public class HomeOperatore /*implements Initializable */{
 		
 		GestioneManualeController controller = new GestioneManualeController(Db2DAOFactoryCredito.getDAOFactoryCredito(DAOFactoryCredito.DB2));
 		controller.riconciliazioneManuale(bonificoNonRiconciliato, creditiNonRiconciliati);
+		
+		this.selezioneRiconciliazione();
 	}
 	@FXML
 	private void eseguiScaricamentoBonifici(ActionEvent event)
@@ -242,5 +288,5 @@ public class HomeOperatore /*implements Initializable */{
 	{
 		MsgDialog.showAndWait(AlertType.INFORMATION, "Info", "Aggiornamenti", "Nessun aggiornamento disponibile");
 		return;
-	}
+	}	
 }

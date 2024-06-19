@@ -57,27 +57,31 @@ public class LogController implements ILog{
 			DateTimeFormatter dtFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 			String line;
 			while((line = br.readLine()) != null) {
-				StringTokenizer st = new StringTokenizer(line, " ");
-				LocalDateTime dataOra = LocalDateTime.parse(st.nextToken(), dtFormatter);
-				
-				st = new StringTokenizer(line, "-");
-				if(st.countTokens() <= 2) {
-					String operazione = "";
-					while(st.hasMoreTokens()) {
-						operazione = operazione += st.nextToken();
-					}
+				try {
+					StringTokenizer st = new StringTokenizer(line, " ");
+					LocalDateTime dataOra = LocalDateTime.parse(st.nextToken(), dtFormatter);
 					
-					EntryOperazione entryOperazione = new EntryOperazione(dataOra, operazione);
-					log.add(entryOperazione);
-				} else {
-					String messaggio = "";
-					while(st.hasMoreTokens()) {
-						messaggio = messaggio += st.nextToken();
-					}
-					
-					EntryMessaggio entryMessaggio = new EntryMessaggio(dataOra, messaggio);
-					log.add(entryMessaggio);
-				}			
+					st = new StringTokenizer(line, "-");
+					if(st.countTokens() <= 2) {
+						String operazione = "";
+						while(st.hasMoreTokens()) {
+							operazione = operazione += st.nextToken();
+						}
+						
+						EntryOperazione entryOperazione = new EntryOperazione(dataOra, operazione);
+						log.add(entryOperazione);
+					} else if (st.countTokens() > 2){
+						String messaggio = "";
+						while(st.hasMoreTokens()) {
+							messaggio = messaggio += st.nextToken();
+						}
+						
+						EntryMessaggio entryMessaggio = new EntryMessaggio(dataOra, messaggio);
+						log.add(entryMessaggio);
+					}		
+				} catch(Exception e) {
+					continue;
+				}
 			}
 			
 			br.close();

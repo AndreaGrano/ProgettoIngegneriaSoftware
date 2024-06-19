@@ -7,9 +7,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import autenticazione.AutenticazioneController;
 import daoCredito.DAOFactoryCredito;
 import daoCreditoDB2.Db2DAOFactoryCredito;
 import daoOperatori.DAOFactoryOperatori;
@@ -46,6 +48,7 @@ import log.LogController;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 
@@ -72,7 +75,7 @@ public class HomeAmministratore implements Initializable {
 	private ListView<Entry> log;
 	@FXML
 	private DatePicker iDataInizioLog, iDataFineLog;
-	private static final int USERNAME=0, PASSWORD=1;
+	private static final int USERNAME=0, HASH=1;
 	private String[] credenziali;
 	@FXML
 	private TextField iNome, iCognome, iTelefono, iIndirizzo, iCodFisc, iCausale, iImporto;
@@ -92,14 +95,43 @@ public class HomeAmministratore implements Initializable {
 	private TextArea infoApp;
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		credenziali=new String[2];
-		LoginDialog login=new LoginDialog();
-		Optional<String[]> credenzialiIn=login.showAndWait();
-		if(credenzialiIn.isEmpty())
-			System.exit(0);
-		else
-			credenziali=credenzialiIn.get();
-		
+		boolean autenticato = false;
+		HashMap<String,Integer> errori = new HashMap<String,Integer>();
+		AutenticazioneController controller = new AutenticazioneController(Db2DAOFactoryOperatori.getDAOFactoryOperatori(DAOFactoryCredito.DB2));
+		do {
+			credenziali=new String[2];
+			LoginDialog login=new LoginDialog();
+			Optional<String[]> credenzialiIn = login.showAndWait();
+			if(credenzialiIn.isEmpty())
+				System.exit(0);
+			else
+				credenziali=credenzialiIn.get();
+			
+			try {
+				autenticato = controller.verificaCredenziali(credenziali[USERNAME], credenziali[HASH]);
+				
+				if(!autenticato) {
+					errori.merge(credenziali[USERNAME], 1, Integer::sum);
+			
+					if(errori.get(credenziali[USERNAME]) >= 3) {
+						GestioneOperatoriController controllerOperatori = new GestioneOperatoriController(Db2DAOFactoryOperatori.getDAOFactoryOperatori(DAOFactoryOperatori.DB2));
+						controllerOperatori.bloccaOperatore(credenziali[USERNAME]);
+						
+						MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Operatore bloccato", "L'operatore " + credenziali[USERNAME] + " è stato bloccato, contattare l'amministratore");
+					} else {
+						MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Credenziali errate o operatore bloccato", "Reinserire le credenziali o contattare l'amministratore");
+					}
+				}
+			} catch(IllegalArgumentException e) {
+				MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Operatore inesistente", "L'operatore " + credenziali[USERNAME] + " è inesistente");
+			}
+			
+			if(!credenziali[USERNAME].equals("admin")) {
+				autenticato = false;
+				
+				MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Client amministratore", "Questo è il client dell'amministratore, non è possibile accedere con credenziali operatore");
+			}
+		} while(!autenticato);
 
 		tableClienti.setEditable(true);
 		colNome.setCellValueFactory(new PropertyValueFactory<Cliente,String>("nome"));
@@ -244,6 +276,8 @@ public class HomeAmministratore implements Initializable {
 				}
 			}
 		});
+		
+		listCreditiNonRiconciliati.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 	}
 	@FXML
 	private void selezioneDati() {
@@ -421,7 +455,7 @@ public class HomeAmministratore implements Initializable {
 		}
 		operatore.setNome(nomeOperatore);
 		
-		String cognomeOperatore = iNomeOperatore.getCharacters().toString();
+		String cognomeOperatore = iCognomeOperatore.getCharacters().toString();
 		if(cognomeOperatore.isBlank()) {
 			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Cognome operatore mancante", "Inserire il cognome dell'operatore");
 			return;

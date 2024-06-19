@@ -16,15 +16,15 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" stylesheets="@Grafica.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfacciaOperatore.HomeOperatore">
+<StackPane prefHeight="500.0" prefWidth="800.0" stylesheets="@Grafica.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfacciaAmministratore.HomeAmministratore">
    <children>
-      <ImageView fitHeight="500.0" fitWidth="800.0" opacity="0.5" pickOnBounds="true">
+      <ImageView fitHeight="500.0" fitWidth="800.0" opacity="0.5">
          <image>
             <Image url="@finance-background-lmbrnieyixwr61g9-799444085.jpg" />
          </image>
       </ImageView>
-      <TabPane prefHeight="500.0" prefWidth="893.0" tabClosingPolicy="UNAVAILABLE">
-         <tabs>
+      <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
             <Tab onSelectionChanged="#selezioneRegistrazione" text="Registrazione credito">
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
@@ -41,7 +41,7 @@
                                     </VBox>
                                     <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0">
                                        <children>
-                                          <TextField fx:id="iNome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="280.0" />
+                                          <TextField fx:id="iNome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="280.0" promptText="Inserire nome cliente" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -58,7 +58,7 @@
                                     </VBox>
                                     <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0">
                                        <children>
-                                          <TextField fx:id="iCognome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="280.0" />
+                                          <TextField fx:id="iCognome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="280.0" promptText="Inserire cognome cliente" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -72,7 +72,7 @@
                                     </VBox>
                                     <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="300.0">
                                        <children>
-                                          <DatePicker fx:id="iDataNascita" />
+                                          <DatePicker fx:id="iDataNascita" promptText="Data nascita cliente" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -86,7 +86,7 @@
                                     </VBox>
                                     <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="300.0">
                                        <children>
-                                          <TextField fx:id="iTelefono" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="280.0" />
+                                          <TextField fx:id="iTelefono" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="280.0" promptText="Inserire numero di telefono cliente" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -100,7 +100,7 @@
                                     </VBox>
                                     <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="300.0">
                                        <children>
-                                          <TextField fx:id="iIndirizzo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="280.0" />
+                                          <TextField fx:id="iIndirizzo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="280.0" promptText="civico,via,città,provincia" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -114,7 +114,7 @@
                                     </VBox>
                                     <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0">
                                        <children>
-                                          <TextField fx:id="iCodFisc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="280.0" />
+                                          <TextField fx:id="iCodFisc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="280.0" promptText="Inserire codice fiscale cliente" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -126,7 +126,8 @@
                               <Label id="title" text="Dati del credito">
                                  <VBox.margin>
                                     <Insets />
-                                 </VBox.margin></Label>
+                                 </VBox.margin>
+                              </Label>
                               <HBox prefHeight="42.0" prefWidth="595.0">
                                  <children>
                                     <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0">
@@ -136,7 +137,7 @@
                                     </VBox>
                                     <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0">
                                        <children>
-                                          <TextField fx:id="iCausale" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="280.0" />
+                                          <TextField fx:id="iCausale" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="280.0" promptText="Inserire causale credito" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -153,7 +154,7 @@
                                     </VBox>
                                     <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0">
                                        <children>
-                                          <DatePicker fx:id="iDataStipula" />
+                                          <DatePicker fx:id="iDataStipula" promptText="Data stipula credito" />
                                        </children>
                                     </HBox>
                                  </children>
@@ -167,7 +168,7 @@
                                     </VBox>
                                     <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0">
                                        <children>
-                                          <TextField fx:id="iImporto" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="280.0" />
+                                          <TextField fx:id="iImporto" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="280.0" promptText="Inserire importo credito" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -239,8 +240,8 @@
                </content>
             </Tab>
             <Tab onSelectionChanged="#selezioneConfigurazione" text="Configurazione">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
                            <children>
@@ -263,9 +264,9 @@
                         </HBox>
                      </children>
                   </AnchorPane>
-              </content>
+               </content>
             </Tab>
-         </tabs>
+        </tabs>
       </TabPane>
    </children>
 </StackPane>

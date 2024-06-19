@@ -26,7 +26,7 @@ public class GestioneManualeController implements IRiconciliazioneManuale, IGest
 		LogController logController = new LogController();
 		String[] operazione = {LocalDateTime.now().toString(), " - visualizza tutti bonifici - ", this.getClass().getSimpleName()};
 		logController.printLogOperazione(operazione);
-		String[] messaggio = {LocalDateTime.now().toString(), " - VisualizzaTuttiBonifici - ", "ricezione - ", this.getClass().getSimpleName()};
+		String[] messaggio = {LocalDateTime.now().toString(), " - VisualizzaTuttiBonifici - ", " - ricezione - ", this.getClass().getSimpleName()};
 		logController.printLogMessaggio(messaggio);
 		
 		//si esegue l'operazione
@@ -42,7 +42,7 @@ public class GestioneManualeController implements IRiconciliazioneManuale, IGest
 		LogController logController = new LogController();
 		String[] operazione = {LocalDateTime.now().toString(), " - visualizza bonifici riconciliati - ", this.getClass().getSimpleName()};
 		logController.printLogOperazione(operazione);
-		String[] messaggio = {LocalDateTime.now().toString(), " - VisualizzaBonificiRiconciliati - ", "ricezione - ", this.getClass().getSimpleName()};
+		String[] messaggio = {LocalDateTime.now().toString(), " - VisualizzaBonificiRiconciliati - ", " - ricezione - ", this.getClass().getSimpleName()};
 		logController.printLogMessaggio(messaggio);
 		
 		//si esegue l'operazione
@@ -74,7 +74,7 @@ public class GestioneManualeController implements IRiconciliazioneManuale, IGest
 		LogController logController = new LogController();
 		String[] operazione = {LocalDateTime.now().toString(), " - visualizza bonifici non riconciliati - ", this.getClass().getSimpleName()};
 		logController.printLogOperazione(operazione);
-		String[] messaggio = {LocalDateTime.now().toString(), " - VisualizzaBonificiNonRiconciliati - ", "ricezione - ", this.getClass().getSimpleName()};
+		String[] messaggio = {LocalDateTime.now().toString(), " - VisualizzaBonificiNonRiconciliati - ", " - ricezione - ", this.getClass().getSimpleName()};
 		logController.printLogMessaggio(messaggio);
 		
 		//si esegue l'operazione
@@ -90,7 +90,7 @@ public class GestioneManualeController implements IRiconciliazioneManuale, IGest
 		LogController logController = new LogController();
 		String[] operazioneBlacklist = {LocalDateTime.now().toString(), " - lettura blacklist - ", this.getClass().getSimpleName()};
 		logController.printLogOperazione(operazioneBlacklist);
-		String[] messaggioBlacklist = {LocalDateTime.now().toString(), "RegistraCredito, lettura blacklist", "ricezione - ", this.getClass().getSimpleName()};
+		String[] messaggioBlacklist = {LocalDateTime.now().toString(), " - RegistraCredito, lettura blacklist", " - ricezione - ", this.getClass().getSimpleName()};
 		logController.printLogMessaggio(messaggioBlacklist);
 				
 		//si verifica che il cliente non sia in blacklist, altrimenti si torna -1
@@ -108,7 +108,7 @@ public class GestioneManualeController implements IRiconciliazioneManuale, IGest
 		//si scrive nel log l'operazione di lettura ti tutti i clienti
 		String[] operazioneClienti = {LocalDateTime.now().toString(), " - lettura tutti clienti - ", this.getClass().getSimpleName()};
 		logController.printLogOperazione(operazioneClienti);
-		String[] messaggioClienti = {LocalDateTime.now().toString(), " - RegistrazioneCredito, lettura clienti", "ricezione - ", this.getClass().getSimpleName()};
+		String[] messaggioClienti = {LocalDateTime.now().toString(), " - RegistrazioneCredito, lettura clienti", " - ricezione - ", this.getClass().getSimpleName()};
 		logController.printLogMessaggio(messaggioClienti);
 		
 		//si verifica se cliente sia o meno presente sul DB; se necessario, lo si inserisce
@@ -171,12 +171,30 @@ public class GestioneManualeController implements IRiconciliazioneManuale, IGest
 		LogController logController = new LogController();
 		String[] operazione = {LocalDateTime.now().toString(), " - visualizza crediti scaduti - ", this.getClass().getSimpleName()};
 		logController.printLogOperazione(operazione);
-		String[] messaggio = {LocalDateTime.now().toString(), " - VisualizzaCreditiScaduti - ", "ricezione - ", this.getClass().getSimpleName()};
+		String[] messaggio = {LocalDateTime.now().toString(), " - VisualizzaCreditiScaduti - ", " - ricezione - ", this.getClass().getSimpleName()};
 		logController.printLogMessaggio(messaggio);
 		
 		//si esegue l'operazione		
 		CreditoDAO creditoDAO = factory.getCreditoDAO();
-		CreditiScaduti creditiScaduti = creditoDAO.readCreditiScaduti();
+		//CreditiScaduti creditiScaduti = creditoDAO.readCreditiScaduti();
+		
+		//si leggono tutti e si descriminano lato controller (per singola app)
+		ParametriSistema ps = ParametriSistema.getInstance();
+		Crediti crediti = creditoDAO.readAll();
+		CreditiScaduti creditiScaduti = new CreditiScaduti();
+		for(Credito credito : crediti) {
+			if(LocalDate.now().isAfter(credito.getDataStipula().plusDays(this.convertiMillisecondiInGiorni(ps.getIntervalloRitardoCredito())))) {
+				CreditoScaduto creditoScaduto = new CreditoScaduto();
+				creditoScaduto.setId(credito.getId());
+				creditoScaduto.setCausale(credito.getCausale());
+				creditoScaduto.setCliente(credito.getCliente());
+				creditoScaduto.setCodiceFiscale(credito.getCodiceFiscale());
+				creditoScaduto.setDataStipula(credito.getDataStipula());
+				creditoScaduto.setImporto(credito.getImporto());
+				
+				creditiScaduti.add(creditoScaduto);
+			}
+		}
 		
 		return creditiScaduti;
 	}
@@ -215,4 +233,8 @@ public class GestioneManualeController implements IRiconciliazioneManuale, IGest
 		return true;
 	}
 	
+	//funzione di utilità
+	private int convertiMillisecondiInGiorni(long millisecondi) {
+		return (int) ( millisecondi / (24 * 60 * 60 * 1000) );
+	}
 }

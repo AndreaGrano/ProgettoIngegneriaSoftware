@@ -24,7 +24,7 @@ public class AccessoDirettoAiDatiController implements IAccessoDirettoAiDati{
 		LogController logController = new LogController();
 		String[] operazione = {LocalDateTime.now().toString(), " - modifica dati (Bonifico) - ", this.getClass().getSimpleName()};
 		logController.printLogOperazione(operazione);
-		String[] messaggio = {LocalDateTime.now().toString(), "ModificaDati del bonifico: " + bonifico.getId(), "invio", this.getClass().getSimpleName()};
+		String[] messaggio = {LocalDateTime.now().toString(), " - ModificaDati del bonifico: " + bonifico.getId(), "invio", this.getClass().getSimpleName()};
 		logController.printLogMessaggio(messaggio);
 		
 		//poi si aggiorna il DB
@@ -38,7 +38,7 @@ public class AccessoDirettoAiDatiController implements IAccessoDirettoAiDati{
 		LogController logController = new LogController();
 		String[] operazione = {LocalDateTime.now().toString(), " - modifica dati (Credito) - ", this.getClass().getSimpleName()};
 		logController.printLogOperazione(operazione);
-		String[] messaggio = {LocalDateTime.now().toString(), "MOdificaDati del credito: " + credito.getId(), "invio", this.getClass().getSimpleName()};
+		String[] messaggio = {LocalDateTime.now().toString(), " - ModificaDati del credito: " + credito.getId(), "invio", this.getClass().getSimpleName()};
 		logController.printLogMessaggio(messaggio);
 		
 		//poi si aggiorna il DB
@@ -52,7 +52,7 @@ public class AccessoDirettoAiDatiController implements IAccessoDirettoAiDati{
 		LogController logController = new LogController();
 		String[] operazione = {LocalDateTime.now().toString(), " - modifica dati (Cliente) - ", this.getClass().getSimpleName()};
 		logController.printLogOperazione(operazione);
-		String[] messaggio = {LocalDateTime.now().toString(), "ModificaDati del cliente: " + cliente.getId(), "invio", this.getClass().getSimpleName()};
+		String[] messaggio = {LocalDateTime.now().toString(), " - ModificaDati del cliente: " + cliente.getId(), "invio", this.getClass().getSimpleName()};
 		logController.printLogMessaggio(messaggio);
 		
 		//poi si aggiorna il DB
@@ -66,7 +66,7 @@ public class AccessoDirettoAiDatiController implements IAccessoDirettoAiDati{
 		LogController logController = new LogController();
 		String[] operazione = {LocalDateTime.now().toString(), " - rimozione dati (Bonifico) - ", this.getClass().getSimpleName()};
 		logController.printLogOperazione(operazione);
-		String[] messaggio = {LocalDateTime.now().toString(), "RimuoviDati del bonifico: " + bonifico.stampaBonifico(), "invio", this.getClass().getSimpleName()};
+		String[] messaggio = {LocalDateTime.now().toString(), " - RimuoviDati del bonifico: " + bonifico.stampaBonifico(), "invio", this.getClass().getSimpleName()};
 		logController.printLogMessaggio(messaggio);
 			
 		//poi si aggiorna il DB
@@ -81,7 +81,7 @@ public class AccessoDirettoAiDatiController implements IAccessoDirettoAiDati{
 		LogController logController = new LogController();
 		String[] operazione = {LocalDateTime.now().toString(), " - rimozione dati (Credito) - ", this.getClass().getSimpleName()};
 		logController.printLogOperazione(operazione);
-		String[] messaggio = {LocalDateTime.now().toString(), "RimuoviDati del credito: " + credito.stampaCredito(), "invio", this.getClass().getSimpleName()};
+		String[] messaggio = {LocalDateTime.now().toString(), " - RimuoviDati del credito: " + credito.stampaCredito(), "invio", this.getClass().getSimpleName()};
 		logController.printLogMessaggio(messaggio);
 				
 		//poi si aggiorna il DB
@@ -95,7 +95,7 @@ public class AccessoDirettoAiDatiController implements IAccessoDirettoAiDati{
 		LogController logController = new LogController();
 		String[] operazione = {LocalDateTime.now().toString(), " - rimozione dati (Cliente) - ", this.getClass().getSimpleName()};
 		logController.printLogOperazione(operazione);
-		String[] messaggio = {LocalDateTime.now().toString(), "RimuoviDati del cliente: " + cliente.stampaCliente(), "invio", this.getClass().getSimpleName()};
+		String[] messaggio = {LocalDateTime.now().toString(), " - RimuoviDati del cliente: " + cliente.stampaCliente(), "invio", this.getClass().getSimpleName()};
 				logController.printLogMessaggio(messaggio);
 			
 		//poi si aggiorna il DB
@@ -109,7 +109,7 @@ public class AccessoDirettoAiDatiController implements IAccessoDirettoAiDati{
 		LogController logController = new LogController();
 		String[] operazione = {LocalDateTime.now().toString(), " - inserimento in blacklist - ", this.getClass().getSimpleName()};
 		logController.printLogOperazione(operazione);
-		String[] messaggio = {LocalDateTime.now().toString(), "InserisciInBlacklist: id:" + cliente.getId() + ", CF: " + cliente.getCodiceFiscale(), "invio", this.getClass().getSimpleName()};
+		String[] messaggio = {LocalDateTime.now().toString(), " - InserisciInBlacklist: id:" + cliente.getId() + ", CF: " + cliente.getCodiceFiscale(), "invio", this.getClass().getSimpleName()};
 		logController.printLogMessaggio(messaggio);
 			
 		//poi si aggiorna il DB
@@ -123,7 +123,7 @@ public class AccessoDirettoAiDatiController implements IAccessoDirettoAiDati{
 		LogController logController = new LogController();
 		String[] operazione = {LocalDateTime.now().toString(), " - rimozione dalla blacklist - ", this.getClass().getSimpleName()};
 		logController.printLogOperazione(operazione);
-		String[] messaggio = {LocalDateTime.now().toString(), "RimuoviDaBlacklist: id:" + cliente.getId() + ", CF: " + cliente.getCodiceFiscale(), "invio", this.getClass().getSimpleName()};
+		String[] messaggio = {LocalDateTime.now().toString(), " - RimuoviDaBlacklist: id:" + cliente.getId() + ", CF: " + cliente.getCodiceFiscale(), "invio", this.getClass().getSimpleName()};
 		logController.printLogMessaggio(messaggio);
 			
 		//poi si aggiorna il DB

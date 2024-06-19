@@ -3,12 +3,7 @@ package interfacciaAutenticazione;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
 
-import autenticazione.AutenticazioneController;
-import daoOperatori.DAOFactoryOperatori;
-import daoOperatoriDB2.Db2DAOFactoryOperatori;
-import gestioneOperatori.GestioneOperatoriController;
 import interfacciaAmministratore.MsgDialog;
 import javafx.fxml.*;
 import javafx.scene.control.Alert.AlertType;
@@ -41,7 +36,7 @@ public class LoginDialog extends Dialog<String[]> {
 				{
 					result=new String[2];
 					final int USERNAME=0, PASSWORD=1, HASH=1;
-					HashMap<String,Integer> errori = new HashMap<String,Integer>();
+					
 					MessageDigest digest = null;
 					try {
 						digest = MessageDigest.getInstance("SHA3-256");
@@ -49,30 +44,9 @@ public class LoginDialog extends Dialog<String[]> {
 						MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Algoritmo di hashing errato", "Contattare l'amministratore");
 					}
 					
-					while(true) {
-						result[USERNAME]=iUsername.getText();
-						result[PASSWORD]=iPassword.getText();					
-						result[HASH] = bytesToHex(digest.digest(result[PASSWORD].getBytes()));
-						
-						AutenticazioneController controllerAutenticazione = new AutenticazioneController(Db2DAOFactoryOperatori.getDAOFactoryOperatori(DAOFactoryOperatori.DB2));
-						try {
-							if(!controllerAutenticazione.verificaCredenziali(result[USERNAME], result[HASH])) {
-								errori.merge(result[USERNAME], 1, Integer::sum);
-								
-								if(errori.get(result[USERNAME]) == 3) {
-									GestioneOperatoriController controllerOperatori = new GestioneOperatoriController(Db2DAOFactoryOperatori.getDAOFactoryOperatori(DAOFactoryOperatori.DB2));
-									controllerOperatori.bloccaOperatore(result[USERNAME]);
-									
-									MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Operatore bloccato", "L'operatore " + result[USERNAME] + " è stato bloccato");
-								}
-								
-							} else {
-								break;
-							}
-						} catch(IllegalArgumentException e) {
-							MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Operatore inesistente", "L'operatore " + result[USERNAME] + " è inesistente");
-						}
-					}
+					result[USERNAME]=iUsername.getText().trim();
+					result[PASSWORD]=iPassword.getText();					
+					result[HASH] = bytesToHex(digest.digest(result[PASSWORD].getBytes()));
 				}
 				return result;
 			});
