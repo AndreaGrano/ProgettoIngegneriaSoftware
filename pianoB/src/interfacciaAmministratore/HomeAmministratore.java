@@ -366,6 +366,8 @@ public class HomeAmministratore implements Initializable {
 		for(Bonifico bonifico : olBonifici) {
 			controller.modificaDati(bonifico);
 		}
+		
+		MsgDialog.showAndWait(AlertType.CONFIRMATION, "Conferma operazione", "Successo", "Operazione eseguita con successo");
 	}
 	@FXML
 	private void aggiornaMulta(ActionEvent event)
@@ -385,6 +387,8 @@ public class HomeAmministratore implements Initializable {
 			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Percentuale multa mancante", "Inserire percentuale multa");
 			return;
 		}
+		
+		MsgDialog.showAndWait(AlertType.CONFIRMATION, "Conferma operazione", "Successo", "Operazione eseguita con successo");
 	}
 	@FXML
 	private void aggiornaRitardoCredito(ActionEvent event)
@@ -404,6 +408,8 @@ public class HomeAmministratore implements Initializable {
 			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Intervallo ritardo credito mancante", "Inserire intervallo ritardo credito");
 			return;
 		}
+		
+		MsgDialog.showAndWait(AlertType.CONFIRMATION, "Conferma operazione", "Successo", "Operazione eseguita con successo");
 	}
 	@FXML
 	private void aggiornaRitardoBlacklist(ActionEvent event)
@@ -423,6 +429,8 @@ public class HomeAmministratore implements Initializable {
 			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Intervallo ritardo blacklist mancante", "Inserire intervallo ritardo blacklist");
 			return;
 		}
+		
+		MsgDialog.showAndWait(AlertType.CONFIRMATION, "Conferma operazione", "Successo", "Operazione eseguita con successo");
 	}
 	@FXML
 	private void aggiornaFormatoCausale(ActionEvent event)
@@ -442,6 +450,8 @@ public class HomeAmministratore implements Initializable {
 		}
 		
 		controller.impostaFormatoCausale(formatoCausale);
+		
+		MsgDialog.showAndWait(AlertType.CONFIRMATION, "Conferma operazione", "Successo", "Operazione eseguita con successo");
 	}
 	@FXML
 	private void clickCreaOp(ActionEvent event)
@@ -503,6 +513,8 @@ public class HomeAmministratore implements Initializable {
 		
 		GestioneOperatoriController controller = new GestioneOperatoriController(Db2DAOFactoryOperatori.getDAOFactoryOperatori(DAOFactoryOperatori.DB2));
 		controller.aggiungiOperatore(operatore, hash);
+		
+		MsgDialog.showAndWait(AlertType.CONFIRMATION, "Conferma operazione", "Successo", "Operazione eseguita con successo");
 	}
 	@FXML
 	private void clickEliminaOp(ActionEvent event)
@@ -516,6 +528,8 @@ public class HomeAmministratore implements Initializable {
 		}
 		
 		controller.rimuoviOperatore(username);
+		
+		MsgDialog.showAndWait(AlertType.CONFIRMATION, "Conferma operazione", "Successo", "Operazione eseguita con successo");
 	}
 	@FXML
 	private void clickSbloccaOp(ActionEvent event)
@@ -529,6 +543,8 @@ public class HomeAmministratore implements Initializable {
 		}
 		
 		controller.sbloccaOperatore(username);
+		
+		MsgDialog.showAndWait(AlertType.CONFIRMATION, "Conferma operazione", "Successo", "Operazione eseguita con successo");
 	}
 	@FXML
 	private void filtraLog(ActionEvent event)
@@ -692,6 +708,8 @@ public class HomeAmministratore implements Initializable {
 			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Causale mal formattata", "Inserire una causale nel formato in vigore");
 			return;
 		}
+		
+		MsgDialog.showAndWait(AlertType.CONFIRMATION, "Conferma operazione", "Successo", "Operazione eseguita con successo");
 	}
 	@FXML
 	private void eseguiRiconciliazioneManuale(ActionEvent event)
@@ -708,6 +726,8 @@ public class HomeAmministratore implements Initializable {
 		controller.riconciliazioneManuale(bonificoNonRiconciliato, creditiNonRiconciliati);
 		
 		this.selezioneRiconciliazione();
+		
+		MsgDialog.showAndWait(AlertType.CONFIRMATION, "Conferma operazione", "Successo", "Operazione eseguita con successo");
 	}
 	@FXML
 	private void eseguiScaricamentoBonifici(ActionEvent event)

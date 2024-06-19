@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" stylesheets="@../interfacciaAmministratore/Grafica.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" stylesheets="@../interfacciaAmministratore/Grafica.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
 	<content>
 		<StackPane>
    <children>
@@ -39,12 +39,12 @@
             </VBox>
             <VBox layoutX="350.0" layoutY="180.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="200.0">
                <children>
-                  <TextField fx:id="iUsername">
+                  <TextField fx:id="iUsername" promptText="Inserire username">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </TextField>
-                  <PasswordField fx:id="iPassword">
+                  <PasswordField fx:id="iPassword" promptText="Inserire password">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>

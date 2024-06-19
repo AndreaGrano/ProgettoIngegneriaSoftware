@@ -220,6 +220,8 @@ public class HomeOperatore implements Initializable {
 			MsgDialog.showAndWait(AlertType.ERROR, "Errore", "Causale mal formattata", "Inserire una causale nel formato in vigore");
 			return;
 		}
+		
+		MsgDialog.showAndWait(AlertType.CONFIRMATION, "Conferma operazione", "Successo", "Operazione eseguita con successo");
 	}
 	@FXML
 	private void eseguiRiconciliazioneManuale(ActionEvent event)
@@ -236,6 +238,8 @@ public class HomeOperatore implements Initializable {
 		controller.riconciliazioneManuale(bonificoNonRiconciliato, creditiNonRiconciliati);
 		
 		this.selezioneRiconciliazione();
+		
+		MsgDialog.showAndWait(AlertType.CONFIRMATION, "Conferma operazione", "Successo", "Operazione eseguita con successo");
 	}
 	@FXML
 	private void eseguiScaricamentoBonifici(ActionEvent event)
