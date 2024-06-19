@@ -7,9 +7,7 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.time.LocalDateTime;
 
-import daoCredito.ClienteDAO;
 import daoCredito.CreditoDAO;
-import daoCredito.DAOFactoryCredito;
 import dominioCredito.Cliente;
 import dominioCredito.Crediti;
 import dominioCredito.CreditiScaduti;

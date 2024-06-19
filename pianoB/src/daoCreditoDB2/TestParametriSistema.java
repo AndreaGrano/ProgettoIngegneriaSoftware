@@ -1,7 +1,5 @@
 package daoCreditoDB2;
 
-import java.util.Calendar;
-
 import daoCredito.DAOFactoryCredito;
 import daoCredito.ParametriSistemaDAO;
 import dominioParametriSistema.ParametriSistema;

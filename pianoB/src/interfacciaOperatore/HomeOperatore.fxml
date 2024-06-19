@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane prefHeight="500.0" prefWidth="800.0" stylesheets="@Grafica.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfacciaAmministratore.HomeAmministratore">
+<StackPane prefHeight="500.0" prefWidth="800.0" stylesheets="@Grafica.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfacciaOperatore.HomeOperatore">
    <children>
       <ImageView fitHeight="500.0" fitWidth="800.0" opacity="0.5">
          <image>

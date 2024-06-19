@@ -1,15 +1,12 @@
 package daoCreditoDB2;
 
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 
 import daoCredito.ClienteDAO;
 import daoCredito.DAOFactoryCredito;
-import daoCredito.ParametriSistemaDAO;
 import dominioCredito.Blacklist;
 import dominioCredito.Cliente;
-import dominioParametriSistema.ParametriSistema;
 
 public class TestClienti { 
 
