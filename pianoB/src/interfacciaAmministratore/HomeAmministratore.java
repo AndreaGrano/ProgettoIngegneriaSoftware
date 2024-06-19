@@ -286,8 +286,10 @@ public class HomeAmministratore implements Initializable {
 		Crediti crediti = controller.visualizzaCrediti();
 		ObservableList<Cliente> olClienti = FXCollections.observableArrayList();
 		ObservableList<Credito> olCrediti = FXCollections.observableArrayList();
-		for(Credito credito : crediti) {
-			olClienti.add(credito.getCliente());
+		for(Credito credito : crediti) {	
+			if(!olClienti.contains(credito.getCliente()))
+				olClienti.add(credito.getCliente());
+			
 			olCrediti.add(credito);
 		}
 		tableClienti.setItems(olClienti);

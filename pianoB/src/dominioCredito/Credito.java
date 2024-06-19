@@ -115,6 +115,6 @@ public abstract class Credito {
 	}
 
 	public String stampaCredito() {
-		return this.getCausale() + " - " + this.getImporto() + " - " + this.getDataStipula();
+		return this.getCausale() + " - " + this.getImporto() + " - " + this.getDataStipula() + " - " + this.getCliente().getCodiceFiscale();
 	}
 }
